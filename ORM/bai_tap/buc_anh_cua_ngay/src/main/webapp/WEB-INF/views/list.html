@@ -20,18 +20,22 @@
 </script>
     <form action="@{/create}" method="POST" th:object="${comment}">
     <input type="hidden" name="id" th:field="*{id}">
+        <div>
     <select th:field="*{point}">
         <option th:value="1" th:text="1">1 normal</option>
         <option th:value="2" th:text="2">2 very normal</option>
         <option th:value="3" th:text="3">3 good</option>
         <option th:value="4" th:text="4">4 great</option>
         <option th:value="5" th:text="5">5 so awesome</option>
-    </select>
+    </select></div>
         <label>Author:</label>
+        <div>
         <input type="text" name="author" th:field="*{author}">
+        </div>
         <p>Feedback:</p>
+        <div>
         <input type="textarea" name="feedback" th:field="*{feedback}">
-
+        </div>
 
     </form>
 </body>
