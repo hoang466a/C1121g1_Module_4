@@ -7,10 +7,7 @@ import com.hoang.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -25,8 +22,8 @@ public class CommentController {
     public ModelAndView showList(){
         ModelAndView modelAndView=new ModelAndView("list");
         Comment comment=new Comment();
-        /*List<Comment> comments=iCommentService.findAllByDate();*/
-        /*modelAndView.addObject("comments",comments);*/
+        List<Comment> comments=iCommentService.findAllByDate();
+        modelAndView.addObject("comments",comments);
         modelAndView.addObject("comment",comment);
         return modelAndView;
     }
@@ -39,6 +36,11 @@ public class CommentController {
         modelAndView.addObject("comments",comments);
         return modelAndView;
     }
+
+    /*@GetMapping()
+    public ModelAndView view(@PathVariable ){
+
+    }*/
 
 
 }

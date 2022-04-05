@@ -11,7 +11,6 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
     private int point;
     private String author;
     private String feedback;

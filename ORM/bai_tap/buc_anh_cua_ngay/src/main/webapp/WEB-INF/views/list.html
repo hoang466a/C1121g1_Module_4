@@ -18,7 +18,7 @@
     };
     request.send();
 </script>
-    <form action="@{/create}" method="POST" th:object="${comment}">
+    <form action="/comment/create" method="POST" th:object="${comment}">
     <input type="hidden" name="id" th:field="*{id}">
         <div>
     <select th:field="*{point}">
@@ -44,8 +44,23 @@
             var currentTime = date.getHours() + ':' + date.getMinutes();
             document.getElementById('date').value = currentDate;
         </script>
-        <input type="submit" th:value="comment">
-
+        <input type="submit" value="comment">
     </form>
+<table>
+<tr>
+    <th>Point</th>
+    <th>View</th>
+</tr>
+<tr th:each="row : ${comments}">
+    <td th:text="${row.getId()}"></td>
+    <td th:text="${row.getPoint()}"></td>
+    <td th:text="${row.getAuthor()}"></td>
+    <td th:text="${row.getFeedback()}"></td>
+    <td th:text="${row.getNumberLike()}"></td>
+    <td th:text="${row.getDate()}"></td>
+</tr>
+
+</table>
+
 </body>
 </html>

@@ -11,15 +11,17 @@ import org.springframework.stereotype.Service;
 import javax.persistence.Entity;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public class CommentRepository implements ICommentRepository {
     @Override
     public List<Comment> findAllByDate() {
+        LocalDate localDate = LocalDate.now();
         TypedQuery<Comment> typedQuery= BaseRepository.
                 entityManager.
-                createQuery("select s"+" from comment s"+" where date='2022/5/4'",Comment.class);
+                createQuery("select s"+" from comment s"+" where date=' "+localDate+"'",Comment.class);
 
         return typedQuery.getResultList();
     }
