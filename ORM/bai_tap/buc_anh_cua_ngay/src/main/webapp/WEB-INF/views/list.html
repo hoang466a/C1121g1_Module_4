@@ -22,11 +22,11 @@
     <input type="hidden" name="id" th:field="*{id}">
         <div>
     <select th:field="*{point}">
-        <option th:value="1" th:text="1">1 normal</option>
-        <option th:value="2" th:text="2">2 very normal</option>
-        <option th:value="3" th:text="3">3 good</option>
-        <option th:value="4" th:text="4">4 great</option>
-        <option th:value="5" th:text="5">5 so awesome</option>
+        <option value="1" >1 normal</option>
+        <option value="2" >2 very normal</option>
+        <option value="3" >3 good</option>
+        <option value="4" >4 great</option>
+        <option value="5" >5 so awesome</option>
     </select></div>
         <label>Author:</label>
         <div>
@@ -36,6 +36,15 @@
         <div>
         <input type="textarea" name="feedback" th:field="*{feedback}">
         </div>
+        <input type="hidden" name="numberLike" th:field="*{numberLike}">
+        <input type="text" id="date" hidden th:field="*{date}">
+        <script>
+            var date = new Date();
+            var currentDate = date.toISOString().slice(0,10);
+            var currentTime = date.getHours() + ':' + date.getMinutes();
+            document.getElementById('date').value = currentDate;
+        </script>
+        <input type="submit" th:value="comment">
 
     </form>
 </body>

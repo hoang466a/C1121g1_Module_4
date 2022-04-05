@@ -25,8 +25,8 @@ public class CommentController {
     public ModelAndView showList(){
         ModelAndView modelAndView=new ModelAndView("list");
         Comment comment=new Comment();
-        List<Comment> comments=iCommentService.findAllByDate();
-        modelAndView.addObject("comments",comments);
+        /*List<Comment> comments=iCommentService.findAllByDate();*/
+        /*modelAndView.addObject("comments",comments);*/
         modelAndView.addObject("comment",comment);
         return modelAndView;
     }
