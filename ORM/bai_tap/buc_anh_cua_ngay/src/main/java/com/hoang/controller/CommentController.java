@@ -6,7 +6,10 @@ import com.hoang.repository.ICommentRepository;
 import com.hoang.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,14 +21,24 @@ public class CommentController {
     @Autowired
     ICommentService iCommentService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ModelAndView showList(){
+        ModelAndView modelAndView=new ModelAndView("list");
+        Comment comment=new Comment();
+        List<Comment> comments=iCommentService.findAllByDate();
+        modelAndView.addObject("comments",comments);
+        modelAndView.addObject("comment",comment);
+        return modelAndView;
+    }
+
+    @PostMapping("/create")
+    public ModelAndView createComment(@ModelAttribute ("comment")Comment comment, Model model){
+        iCommentService.save(comment);
         ModelAndView modelAndView=new ModelAndView("list");
         List<Comment> comments=iCommentService.findAllByDate();
         modelAndView.addObject("comments",comments);
         return modelAndView;
     }
-
 
 
 }
