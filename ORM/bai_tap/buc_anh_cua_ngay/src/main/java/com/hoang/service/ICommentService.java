@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface ICommentService {
 
-    List<Comment> findAll();
+    List<Comment> findAllByDate();
+
+    Comment findById(int id);
 
     void save(Comment comment);
-
-    void edit(Comment comment);
 
     void delete(Comment comment);
 
