@@ -19,8 +19,8 @@
         <th>Name</th>
         <th>Note</th>
         <th>Date</th>
-        <th>Edit</th>
         <th>Category</th>
+        <th>Edit</th>
         <th>Delete</th>
         <th>View</th>
     </tr>
@@ -32,9 +32,9 @@
         <td th:text="${row.getNoteBlog()}"></td>
         <td th:text="${row.getDateBlog()}"></td>
         <td th:text="${row.categoryOb.getNameCategory()}"></td>
-        <td><a th:href="@{/employee/{id}/edit(id=${row.getIdBlog()})}" class="btn btn-info">Edit</a></td>
-        <td><a th:href="@{/employee/{id}/edit(id=${row.getIdBlog()})}" class="btn btn-danger">Delete</a></td>
-        <td><a th:href="@{/employee/{id}/view(id=${row.getIdBlog()})}" class="btn btn-info">View</a></td>
+        <td><a th:href="@{/blog/{id}/edit(id=${row.getIdBlog()})}" class="btn btn-info">Edit</a></td>
+        <td><a th:href="@{/blog/{id}/edit(id=${row.getIdBlog()})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/blog/{id}/view(id=${row.getIdBlog()})}" class="btn btn-info">View</a></td>
     </tr>
     </tbody>
 </table>

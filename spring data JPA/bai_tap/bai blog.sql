@@ -17,3 +17,5 @@ note_blog varchar(255),
 date_blog date,
 foreign key(id_category) references category(id_category)
 );
+
+insert into category values(1,'car'),(2,'cat'),(3,'dog'),(4,'bird');
