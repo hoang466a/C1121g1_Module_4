@@ -52,7 +52,6 @@
     <th>View</th>
 </tr>
 <tr th:each="row : ${comments}">
-    <td th:text="${row.getId()}"></td>
     <td th:text="${row.getPoint()}"></td>
     <td th:text="${row.getAuthor()}"></td>
     <td th:text="${row.getFeedback()}"></td>
