@@ -11,13 +11,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CategoryController {
@@ -27,10 +25,13 @@ public class CategoryController {
 
     @GetMapping("/category/list")
     public ModelAndView showList(@PageableDefault
-                                         (value=3,sort="idCategory",direction = Sort.Direction.ASC) Pageable pageable){
+                                         (value=3,sort="idCategory",direction = Sort.Direction.ASC) Pageable pageable,
+                                 @RequestParam Optional<String>keyword){
+        String keywordValue=keyword.orElse("");
         ModelAndView modelAndView=new ModelAndView("category/list");
-        Page<Category> categoryList=categoryService.findAllPage(pageable);
+        Page<Category> categoryList=categoryService.findAllPaging(keywordValue,pageable);
         modelAndView.addObject("categoryList",categoryList);
+        modelAndView.addObject("keywordValue",keywordValue);
         return modelAndView;
     }
 

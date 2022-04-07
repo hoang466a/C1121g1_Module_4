@@ -18,9 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("blog/")
+@RequestMapping("/blog/")
 public class BlogController {
     @Autowired
     BlogService blogService;
@@ -30,12 +31,15 @@ public class BlogController {
 
     @GetMapping("/list")
     public ModelAndView showList(@PageableDefault
-                                             (value=3,sort="idBlog",direction = Sort.Direction.ASC)Pageable pageable){
+                                             (value=3,sort="idBlog",direction = Sort.Direction.ASC)Pageable pageable,
+                                 @RequestParam Optional<String>keyword){
+        String keywordValue=keyword.orElse("");
         ModelAndView modelAndView=new ModelAndView("blog/list");
-        Page<Blog> blogList=blogService.findAllPage(pageable);
+        Page<Blog> blogList=blogService.findAllPaging(keywordValue,pageable);
         List<Category> categoryList=categoryService.findAll();
         modelAndView.addObject("blogList",blogList);
         modelAndView.addObject("categoryList",categoryList);
+        modelAndView.addObject("keywordValue",keywordValue);
         return modelAndView;
     }
 
@@ -60,7 +64,7 @@ public class BlogController {
         return modelAndView;
     }
 
-    @GetMapping("/blog/{id}/view")
+    @GetMapping("/{id}/view")
     public ModelAndView viewBlog(@PathVariable int id){
         ModelAndView modelAndView=new ModelAndView("/blog/view");
         Blog blog=blogService.findById(id);
@@ -78,10 +82,10 @@ public class BlogController {
         return modelAndView;
     }
 
-    @PostMapping("/editBlog")
-    public ModelAndView editAndSaveBlog(@ModelAttribute("blog")Blog blog,Model model){
-        blogService.save(blog);
+    @PostMapping("/update")
+    public ModelAndView editAndSaveBlog(@ModelAttribute("blog")Blog blog){
         ModelAndView modelAndView=new ModelAndView("redirect:/blog/list");
+        blogService.save(blog);
         return modelAndView;
     }
 

@@ -12,19 +12,19 @@
         <input type="hidden" th:field="*{blog.idBlog}"/>
         <div>
             <label>Name</label>
-            <input type="text" th:field="*{blog.nameBlog}"/>
+            <input type="text" readonly th:field="*{blog.nameBlog}"/>
         </div>
         <div>
             <label>Note</label>
-            <input type="text" th:field="*{blog.noteBlog}"/>
+            <input type="text" readonly th:field="*{blog.noteBlog}"/>
         </div>
         <div>
             <label>Date</label>
-        <input type="date" th:field="*{blog.dateBlog}" />
+        <input type="date" readonly th:field="*{blog.dateBlog}" />
         </div>
         <div>
             <label>Category</label>
-            <input type="text" th:field="*{blog.categoryOb.nameCategory}" />
+            <input type="text" readonly th:field="*{blog.categoryOb.nameCategory}" />
         </div>
 </div>
 <footer th:replace="/layout :: footer"></footer>

@@ -40,4 +40,9 @@ public class BlogService implements IBlogService {
     public void remove(Integer id) {
         blogRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Blog> findAllPaging(String keyword, Pageable pageable) {
+        return blogRepository.findByNameBlogContaining(keyword,pageable);
+    }
 }

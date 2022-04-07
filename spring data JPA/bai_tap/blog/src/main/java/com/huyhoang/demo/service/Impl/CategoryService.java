@@ -39,6 +39,11 @@ public class CategoryService implements ICategoryService {
     public void remove(Integer id) {
         categoryRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Category> findAllPaging(String keyword, Pageable pageable) {
+        return categoryRepository.findByNameCategoryContaining(keyword,pageable);
+    }
 }
 
 
