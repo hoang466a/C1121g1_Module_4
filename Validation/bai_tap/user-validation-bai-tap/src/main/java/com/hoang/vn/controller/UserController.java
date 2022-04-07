@@ -46,27 +46,26 @@ public class UserController {
     public ModelAndView showCreate(){
         ModelAndView modelAndView=new ModelAndView("/user/create");
         UserDTO userDTO=new UserDTO();
-        modelAndView.addObject("user",userDTO);
+        modelAndView.addObject("userDTO",userDTO);
         return modelAndView;
     }
 
-    @PostMapping("/saveBlog")
-    public ModelAndView saveUser(@Valid @ModelAttribute("blog")UserDTO userDTO
-                                , BindingResult bindingResult,
-                                 ){
-        userDTO.validate(userDTO,bindingResult);
-        User user=new User();
+    @PostMapping("/user/saveUser")
+    public ModelAndView saveUser(@Valid @ModelAttribute UserDTO userDTO
+                                , BindingResult bindingResult){
+        userDTO.validate(userDTO, bindingResult);
+        User user = new User();
         if(bindingResult.hasFieldErrors()){
-        ModelAndView modelAndView=new ModelAndView("/user/create");
-        return modelAndView;
-        }else{
+            ModelAndView modelAndView=new ModelAndView("/user/create");
+//            UserDTO userDTO1=new UserDTO();
+//            modelAndView.addObject("user",userDTO1);
+            return modelAndView;
+        } else {
             ModelAndView modelAndView=new ModelAndView("/user/list");
             BeanUtils.copyProperties(userDTO,user);
             userService.save(user);
             return modelAndView;
         }
-
-
     }
 
 

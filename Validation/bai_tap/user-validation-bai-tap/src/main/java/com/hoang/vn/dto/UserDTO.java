@@ -5,13 +5,15 @@ import com.sun.istack.NotNull;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class UserDTO implements Validator {
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUser;
     @NotBlank(message = "Không được để trống!")
     @Size(min=5,max=45)
