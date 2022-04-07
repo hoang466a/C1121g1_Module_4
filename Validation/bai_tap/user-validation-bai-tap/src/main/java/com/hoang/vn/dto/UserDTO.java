@@ -19,11 +19,20 @@ public class UserDTO implements Validator {
     @NotBlank(message = "Không được để trống!")
     @Size(min=5,max=45)
     private String lastName;
+    private String phoneNumber;
     private String dateOfBirth;
     @Email(message = "Không đúng định dạng email, xin nhập lại!")
     private String email;
 
     public UserDTO() {
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getIdUser() {

@@ -1,10 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout ::head">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User List</title>
 </head>
+<link reel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <body>
+<h3>User List</h3>
+<p>
+    <a th:href="@{/user/create}">
+        Add new user
+    </a>
+<form action="/category/list">
+    <input type="search" name="keyword">
+    <button>Search</button>
+</form>
 
+</p>
+<table id = "object_s">
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${userList}">
+        <td th:text="${row.getFirstName()}"></td>
+        <td th:text="${row.getLastName()}"></td>
+        <td th:text="${row.getPhoneNumber()}"></td>
+        <td th:text="${row.getDateOfBirth()}"></td>
+        <td th:text="${row.getEmail()}"></td>
+        <td><a th:href="@{/user/{id}/edit(id=${row.getIdCategory()})}" class="btn btn-info">Edit</a></td>
+        <td><a th:href="@{/user/{id}/delete(id=${row.getIdCategory()})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/user/{id}/view(id=${row.getIdCategory()})}" class="btn btn-info">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/user/list(page=${userList.number-1},keyword=${keywordValue})}"
+       th:if="${userList.hasPrevious()}">Previous</a>
+    <span th:text="${userList.number+1}"></span> /
+    <span th:text="${userList.totalPages}"></span>
+    <a
+            th:href="@{/user/list(page=${userList.number+1},keyword=${keywordValue})}"
+            th:if="${userList.hasNext()}"
+    >Next</a>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>
