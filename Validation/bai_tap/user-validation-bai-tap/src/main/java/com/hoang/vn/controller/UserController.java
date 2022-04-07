@@ -1,0 +1,41 @@
+package com.hoang.vn.controller;
+
+
+import com.hoang.vn.model.User;
+import com.hoang.vn.service.IUserService;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.persistence.*;
+import java.util.Optional;
+
+@Controller
+public class UserController {
+    @Autowired
+    IUserService userService;
+
+    @GetMapping("/user/list")
+    public ModelAndView showList(@PageableDefault(value=3,sort="idUser",direction= Sort.Direction.ASC)Pageable pageable,
+                                 @RequestParam Optional<String> keyword){
+        String keywordValue=keyword.orElse("");
+        ModelAndView modelAndView=new ModelAndView("user/list");
+        Page<User>userList=userService.findAllPaging(keywordValue,pageable);
+        modelAndView.addObject("userList",userList);
+        modelAndView.addObject("keywordValue",keywordValue);
+        return modelAndView;
+    }
+
+
+
+
+
+
+}
