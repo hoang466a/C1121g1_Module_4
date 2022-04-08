@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Edit Blog</h3>
+<p>
+    <a th:href="@{/blog/list}">
+        Back to employee list
+    </a>
+</p>
+<div id="form">
+        <input type="hidden" th:field="*{blog.idBlog}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" readonly th:field="*{blog.nameBlog}"/>
+        </div>
+        <div>
+            <label>Note</label>
+            <input type="text" readonly th:field="*{blog.noteBlog}"/>
+        </div>
+        <div>
+            <label>Date</label>
+        <input type="date" readonly th:field="*{blog.dateBlog}" />
+        </div>
+        <div>
+            <label>Category</label>
+            <input type="text" readonly th:field="*{blog.categoryOb.nameCategory}" />
+        </div>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
