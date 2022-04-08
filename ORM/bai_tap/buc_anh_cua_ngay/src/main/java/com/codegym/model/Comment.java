@@ -1,7 +1,5 @@
-package com.hoang.model;
+package com.codegym.model;
 
-
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 

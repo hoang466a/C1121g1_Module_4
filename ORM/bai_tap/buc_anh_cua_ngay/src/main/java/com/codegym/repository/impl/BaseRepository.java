@@ -1,4 +1,4 @@
-package com.hoang.repository.impl;
+package com.codegym.repository.impl;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;

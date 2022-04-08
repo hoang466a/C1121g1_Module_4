@@ -1,6 +1,6 @@
-package com.hoang.repository;
+package com.codegym.repository;
 
-import com.hoang.model.Comment;
+import com.codegym.model.Comment;
 
 import java.util.List;
 

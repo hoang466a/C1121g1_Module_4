@@ -1,9 +1,9 @@
-package com.hoang.service.impl;
+package com.codegym.service.impl;
 
 
-import com.hoang.model.Comment;
-import com.hoang.repository.ICommentRepository;
-import com.hoang.service.ICommentService;
+import com.codegym.model.Comment;
+import com.codegym.repository.ICommentRepository;
+import com.codegym.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,8 @@
-package com.hoang.controller;
+package com.codegym.controller;
 
 
-import com.hoang.model.Comment;
-import com.hoang.repository.ICommentRepository;
-import com.hoang.service.ICommentService;
+import com.codegym.model.Comment;
+import com.codegym.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

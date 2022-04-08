@@ -1,14 +1,10 @@
-package com.hoang.repository.impl;
+package com.codegym.repository.impl;
 
 
-import com.hoang.model.Comment;
-import com.hoang.repository.ICommentRepository;
-import com.hoang.repository.impl.BaseRepository;
-import com.hoang.service.ICommentService;
+import com.codegym.model.Comment;
+import com.codegym.repository.ICommentRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
@@ -19,8 +15,7 @@ public class CommentRepository implements ICommentRepository {
     @Override
     public List<Comment> findAllByDate() {
         LocalDate localDate = LocalDate.now();
-        TypedQuery<Comment> typedQuery= BaseRepository.
-                entityManager.
+        TypedQuery<Comment> typedQuery= BaseRepository.entityManager.
                 createQuery("select s"+" from comment s"+" where date=' "+localDate+"'",Comment.class);
 
         return typedQuery.getResultList();
