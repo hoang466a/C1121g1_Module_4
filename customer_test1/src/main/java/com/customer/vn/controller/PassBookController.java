@@ -37,8 +37,11 @@ public class PassBookController {
     public ModelAndView showList(@PageableDefault
                                          (value=3,sort="idPassBook",direction = Sort.Direction.ASC)
                                          Pageable pageable,
-                                 @RequestParam Optional<String> keyword){
+                                 @RequestParam(name="keyvalue",required = false) Optional<String> keyword,
+                                 @RequestParam(name="keyvalue2",required = false) Optional<String> keyword2,
+                                 @RequestParam(name="keyvalue3",required = false) Optional<String> keyword3){
         String keywordValue=keyword.orElse("");
+
         ModelAndView modelAndView=new ModelAndView("passbook/list");
         Page<PassBook> passBookList=passBookService.findAllPage(pageable);
         List<Customer> customerList=customerService.findAll();
@@ -53,69 +56,91 @@ public class PassBookController {
     public ModelAndView showCreate(){
         ModelAndView modelAndView=new ModelAndView("/passbook/create");
         PassBookDTO passBookDTO=new PassBookDTO();
+        List<Tenor> tenorList=tenorService.findAll();
         modelAndView.addObject("passBookDTO",passBookDTO);
+        modelAndView.addObject("tenorList",tenorList);
         return modelAndView;
     }
 
-    @PostMapping("/passbook/savePassBook")
+   @PostMapping("/passbook/savePassBook")
     public ModelAndView savePassBook(@Valid @ModelAttribute PassBookDTO passBookDTO
             , BindingResult bindingResult){
+
         passBookDTO.validate(passBookDTO,bindingResult);
 
         if(bindingResult.hasFieldErrors()){
-            ModelAndView modelAndView=new ModelAndView("/passbook/create");
-            modelAndView.addObject("customerList",customerService.findAll());
+            ModelAndView modelAndView=new ModelAndView( "/passbook/create");
             modelAndView.addObject("tenorList",tenorService.findAll());
             return modelAndView;
-        } else {
+        }
+        else {
             PassBook passBook = new PassBook();
             ModelAndView modelAndView=new ModelAndView("redirect:/passbook/list");
             BeanUtils.copyProperties(passBookDTO,passBook);
+            passBook.setCustomer(new Customer());
+            BeanUtils.copyProperties(passBookDTO.getCustomer(),passBook.getCustomer());
             passBookService.save(passBook);
             return modelAndView;
         }
     }
 
-    @GetMapping("customer/{id}/view")
+    @GetMapping("passbook/{id}/view")
     public ModelAndView viewCustomer(@PathVariable int id){
-        ModelAndView modelAndView=new ModelAndView("/customer/view");
-        Customer customer=customerService.findById(id);
-        modelAndView.addObject("customer",customer);
+        ModelAndView modelAndView=new ModelAndView("/passbook/view");
+        PassBook passBook=passBookService.findById(id);
+        modelAndView.addObject("passBook",passBook);
+        return modelAndView;
+    }
+
+    @GetMapping("/passbook/{id}/delete")
+    public ModelAndView deletePassbook(@PathVariable int id){
+        passBookService.remove(id);
+        ModelAndView modelAndView=new ModelAndView("redirect:/passbook/list");
         return modelAndView;
     }
 
 
-    @GetMapping("customer/{id}/edit")
-    public ModelAndView editCustomer(@PathVariable int id){
-        ModelAndView modelAndView=new ModelAndView("customer/edit");
-        Customer customer=customerService.findById(id);
+    @GetMapping("passbook/{id}/edit")
+    public ModelAndView editPassbook(@PathVariable int id){
+        ModelAndView modelAndView=new ModelAndView("passbook/edit");
+        PassBookDTO passBookDTO=new PassBookDTO();
         CustomerDTO customerDTO=new CustomerDTO();
+        PassBook passBook=passBookService.findById(id);
+        Customer customer=customerService.findById(passBook.getCustomer().getIdCustomer());
+        List<Tenor> tenorList=tenorService.findAll();
         BeanUtils.copyProperties(customer,customerDTO);
-        modelAndView.addObject("customerDTO",customerDTO);
+        BeanUtils.copyProperties(passBook,passBookDTO);
+        passBookDTO.setCustomer(customerDTO);
+        modelAndView.addObject("passBookDTO",passBookDTO);
+        modelAndView.addObject("tenorList",tenorList);
         return modelAndView;
     }
 
 
-    @PostMapping("customer/update")
-    public ModelAndView editAndSaveCustomer(@Valid @ModelAttribute CustomerDTO customerDTO,
+
+    @PostMapping("passbook/update")
+    public ModelAndView editAndSavePassBook(@Valid @ModelAttribute PassBookDTO passBookDTO,
                                             BindingResult bindingResult){
+        passBookDTO.validate(passBookDTO,bindingResult);
+
         if(bindingResult.hasFieldErrors()){
-            ModelAndView modelAndView=new ModelAndView("/customer/edit");
+            ModelAndView modelAndView=new ModelAndView( "/passbook/edit");
+            modelAndView.addObject("tenorList",tenorService.findAll());
             return modelAndView;
-        } else {
-            Customer customer = new Customer();
-            ModelAndView modelAndView=new ModelAndView("redirect:/customer/list");
-            BeanUtils.copyProperties(customerDTO,customer);
-            customerService.save(customer);
+        }
+        else {
+            PassBook passBook = new PassBook();
+            ModelAndView modelAndView=new ModelAndView("redirect:/passbook/list");
+            BeanUtils.copyProperties(passBookDTO,passBook);
+            passBook.setCustomer(new Customer());
+            BeanUtils.copyProperties(passBookDTO.getCustomer(),passBook.getCustomer());
+            passBookService.save(passBook);
             return modelAndView;
         }
     }
 
 
-    @GetMapping("/blog/{id}/delete")
-    public ModelAndView deleteCustomer(@PathVariable int id){
-        customerService.remove(id);
-        ModelAndView modelAndView=new ModelAndView("redirect:/blog/list");
-        return modelAndView;
-    }
+
+
+
 }

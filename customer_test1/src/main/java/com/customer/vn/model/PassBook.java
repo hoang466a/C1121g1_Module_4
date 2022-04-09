@@ -15,7 +15,7 @@ public class PassBook {
     @JoinColumn(name="id_tenor",referencedColumnName = "idTenor")
     private Tenor tenor;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name="id_customer", referencedColumnName = "idCustomer")
     private Customer customer;
 

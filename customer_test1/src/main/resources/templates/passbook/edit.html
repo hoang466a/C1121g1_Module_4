@@ -2,36 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/layout :: head"></head>
 <body>
-<h3>Edit Blog</h3>
-<p>
-    <a th:href="@{/blog/list}">
-        Back to employee list
-    </a>
-</p>
-<div id="form">
-    <form th:action="@{/blog/update}" th:object="${blog}"
-          method="POST" novalidate="novalidate">
-        <input type="hidden" th:field="*{idBlog}"/>
-        <div>
-            <label>Name</label>
-            <input type="text" th:field="*{nameBlog}"/>
+<h3>Add PassBook/h3>
+    <p>
+        <a th:href="@{/passbook/list}">
+            Back to passbook list
+        </a>
+    </p>
+    <center>
+        <div id="form">
+            <form th:action="@{/passbook/update}" th:object="${passBookDTO}"
+                  method="POST" novalidate="novalidate">
+                <div>
+                    <label>Id Pass book</label>
+                    <input type="text" readonly th:field="*{idPassBook}"/>
+                </div>
+                <div>
+                    <label>Id Customer</label>
+                    <input type="text" readonly th:field="*{customer.idCustomer}"/>
+                </div>
+                <div style="color: red" th:errors="*{customer.idCustomer}"> </div>
+                <div>
+                    <label>Name Customer</label>
+                    <input type="text" th:field="*{customer.nameCustomer}"/>
+                </div>
+                <div style="color: red" th:errors="*{customer.nameCustomer}"> </div>
+                <div>
+                    <label>Deposit date</label>
+                    <input type="text" th:field="*{depositDate}"/>
+                </div>
+                <div style="color: red" th:errors="*{depositDate}"> </div>
+                <div>
+                    <label>Tenor</label>
+                    <select th:field="*{tenor.idTenor}">
+                        <option th:each="cate : ${tenorList}"
+                                th:value="${cate.idTenor}"
+                                th:utext="${cate.nameTenor}"/>
+                    </select>
+                </div>
+                <div style="color: red" th:errors="*{tenor.idTenor}"> </div>
+                <div>
+                    <label>Money</label>
+                    <input type="text" th:field="*{money}">
+                </div>
+                <div style="color: red" th:errors="*{money}"> </div>
+                <input type="submit" value="Save"/>
+            </form>
         </div>
-        <div>
-            <label>Note</label>
-            <input type="text" th:field="*{noteBlog}"/>
-        </div>
-        <input type="hidden" th:field="*{dateBlog}" />
-        <div>
-            <label>Category</label>
-            <select th:field="*{categoryOb}">
-                <option th:each="cate : ${categoryList}"
-                        th:value="${cate.idCategory}"
-                        th:utext="${cate.nameCategory}"/>
-            </select>
-        </div>
-        <input type="submit" value="Save"/>
-    </form>
-</div>
-<footer th:replace="/layout :: footer"></footer>
+    </center>
+    <footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

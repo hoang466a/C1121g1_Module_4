@@ -37,9 +37,9 @@
         <td th:text="${row.getPhoneNumber()}"></td>
         <td th:text="${row.getDateOfBirth()}"></td>
         <td th:text="${row.getEmail()}"></td>
-        <td><a th:href="@{/user/{id}/edit(id=${row.getIdCategory()})}" class="btn btn-info">Edit</a></td>
-        <td><a th:href="@{/user/{id}/delete(id=${row.getIdCategory()})}" class="btn btn-danger">Delete</a></td>
-        <td><a th:href="@{/user/{id}/view(id=${row.getIdCategory()})}" class="btn btn-info">View</a></td>
+        <td><a th:href="@{/user/{id}/edit(id=${row.getIdUser()})}" class="btn btn-info">Edit</a></td>
+        <td><a th:href="@{/user/{id}/delete(id=${row.getIdUser()})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/user/{id}/view(id=${row.getIdUser()})}" class="btn btn-info">View</a></td>
     </tr>
     </tbody>
 </table>

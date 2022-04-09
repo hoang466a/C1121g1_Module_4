@@ -13,9 +13,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 public class PassBookDTO implements Validator {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPassBook;
     @NotBlank
@@ -25,7 +25,7 @@ public class PassBookDTO implements Validator {
     private String money;
     @NotNull
     @Valid
-    private Customer customer;
+    private CustomerDTO customer;
     @NotNull
     private Tenor tenor;
 
@@ -56,11 +56,11 @@ public class PassBookDTO implements Validator {
         this.money = money;
     }
 
-    public Customer getCustomer() {
+    public CustomerDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
 
@@ -79,10 +79,16 @@ public class PassBookDTO implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        PassBookDTO passBookDTO=(PassBookDTO) target;
-        Long moneyLong=Long.parseLong(passBookDTO.money);
-        if(moneyLong<30000000){
-            errors.rejectValue("money","not enough money", "Số tiền nhập " +
+        PassBookDTO passBookDTO = (PassBookDTO) target;
+        Integer yearPast=Integer.parseInt(passBookDTO.depositDate.substring(0,4));
+        Integer yearCurrent= LocalDate.now().getYear();
+        if(yearCurrent-yearPast<0){
+            errors.rejectValue("depositDate","std.not0","Ngày nhập không được nhỏ hơn ngày hiện tại!");
+        }
+        else if (!passBookDTO.money.matches("^[0-9]+$")) {
+            errors.rejectValue("money", "Format", "Định dạng không hợp lệ");
+        } else if (passBookDTO.money == "" || Long.parseLong(passBookDTO.money) < 30000000) {
+            errors.rejectValue("money", "not enough money", "Số tiền nhập " +
                     "phải lớn hơn hoặc bằng 30000000");
         }
     }

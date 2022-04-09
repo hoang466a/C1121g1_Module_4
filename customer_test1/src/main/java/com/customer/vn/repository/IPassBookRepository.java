@@ -6,8 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IPassBookRepository extends JpaRepository<PassBook,Integer> {
-    Page<PassBook> findAllByCustomer_IdCustomer(Integer id, Pageable pageable);
-    Page<PassBook> findAllByCustomer_NameCustomer(String name,Pageable pageable);
+import java.util.Date;
 
+public interface IPassBookRepository extends JpaRepository<PassBook,Integer> {
+    Page<PassBook> findAllByCustomerNameCustomerLike(String name,Pageable pageable);
+    Page<PassBook> findAllByDepositDateBetweenDateAndDate(Date date1, Date date2, Pageable pageable);
+    Page<PassBook> findAllByDepositDateAndCustomerNameAndBetweenDateAndDate(String name,Date date1, Date date2, Pageable pageable);
 }

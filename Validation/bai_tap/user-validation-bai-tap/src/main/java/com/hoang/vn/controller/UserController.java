@@ -61,7 +61,7 @@ public class UserController {
 //            modelAndView.addObject("user",userDTO1);
             return modelAndView;
         } else {
-            ModelAndView modelAndView=new ModelAndView("/user/list");
+            ModelAndView modelAndView=new ModelAndView("redirect:/user/list");
             BeanUtils.copyProperties(userDTO,user);
             userService.save(user);
             return modelAndView;

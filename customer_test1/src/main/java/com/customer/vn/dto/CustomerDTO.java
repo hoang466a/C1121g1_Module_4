@@ -8,14 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 public class CustomerDTO implements Validator {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCustomer;
-    @NotBlank(message = "Nhập vào không hợp lệ!")
+    @NotNull(message = "Không được để trống!")
+    private Integer idCustomer;
+    //@NotBlank(message = "Nhập vào không hợp lệ!")
     @Pattern(regexp = "[a-zA-Z][a-zA-Z ]{1,}",message = "Nhập vào không hợp lệ")
     private String nameCustomer;
     private Set<PassBook> passBook;
@@ -23,11 +23,11 @@ public class CustomerDTO implements Validator {
     public CustomerDTO() {
     }
 
-    public int getIdCustomer() {
+    public Integer getIdCustomer() {
         return idCustomer;
     }
 
-    public void setIdCustomer(int idCustomer) {
+    public void setIdCustomer(Integer idCustomer) {
         this.idCustomer = idCustomer;
     }
 

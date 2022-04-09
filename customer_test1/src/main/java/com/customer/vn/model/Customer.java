@@ -7,21 +7,20 @@ import java.util.Set;
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCustomer;
+    private Integer idCustomer;
     private String nameCustomer;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private Set<PassBook> passBook;
 
     public Customer() {
     }
 
-    public int getIdCustomer() {
+    public Integer getIdCustomer() {
         return idCustomer;
     }
 
-    public void setIdCustomer(int idCustomer) {
+    public void setIdCustomer(Integer idCustomer) {
         this.idCustomer = idCustomer;
     }
 
