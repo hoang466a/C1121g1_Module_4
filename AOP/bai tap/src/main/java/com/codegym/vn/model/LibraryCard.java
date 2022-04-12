@@ -17,6 +17,12 @@ public class LibraryCard {
     public LibraryCard() {
     }
 
+    public LibraryCard(Integer idCard, String codeCard, Book bookOB) {
+        this.idCard = idCard;
+        this.codeCard = codeCard;
+        this.bookOB = bookOB;
+    }
+
     public Integer getIdCard() {
         return idCard;
     }

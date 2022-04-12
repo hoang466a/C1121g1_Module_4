@@ -10,7 +10,7 @@ public interface IGeneralService<T> {
 
     List<T> findAll();
 
-    Page<T> searchAllPage(Optional<String>name, Pageable pageable);
+    Page<T> searchAllPage(String name, Pageable pageable);
 
     T findById(Integer id);
 
