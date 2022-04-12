@@ -37,18 +37,33 @@ public class PassBookController {
     public ModelAndView showList(@PageableDefault
                                          (value=3,sort="idPassBook",direction = Sort.Direction.ASC)
                                          Pageable pageable,
-                                 @RequestParam(name="keyvalue",required = false) Optional<String> keyword,
-                                 @RequestParam(name="keyvalue2",required = false) Optional<String> keyword2,
-                                 @RequestParam(name="keyvalue3",required = false) Optional<String> keyword3){
+                                 @RequestParam(name="keyword",required = false) Optional<String> keyword,
+                                 @RequestParam(name="keyword2",required = false) Optional<String> keyword2,
+                                 @RequestParam(name="keyword3",required = false) Optional<String> keyword3){
         String keywordValue=keyword.orElse("");
+        String keywordValue2=keyword2.orElse("");
+        String keywordValue3=keyword3.orElse("");
 
         ModelAndView modelAndView=new ModelAndView("passbook/list");
-        Page<PassBook> passBookList=passBookService.findAllPage(pageable);
+//keyword.isPresent();
+//keyword.get().equals("");
+        if(keyword.isPresent()&&keyword2.isPresent()
+                &&keyword3.isPresent()) {
+            Page<PassBook> passBookList=passBookService.findAll(pageable);
+            modelAndView.addObject("passBookList",passBookList);
+        } else {
+            Page<PassBook> passBookList=passBookService.findAll2(keyword2,
+                    keyword3,keyword,pageable);
+            modelAndView.addObject("passBookList",passBookList);
+        }
+
         List<Customer> customerList=customerService.findAll();
         List<Tenor> tenorList=tenorService.findAll();
         modelAndView.addObject("customerList",customerList);
-        modelAndView.addObject("passBookList",passBookList);
         modelAndView.addObject("tenorList",tenorList);
+        modelAndView.addObject("keywordValue",keywordValue);
+        modelAndView.addObject("keywordValue2",keywordValue2);
+        modelAndView.addObject("keywordValue3",keywordValue3);
         return modelAndView;
     }
 

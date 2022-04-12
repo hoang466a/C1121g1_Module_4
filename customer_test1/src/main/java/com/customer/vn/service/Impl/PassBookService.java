@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -46,8 +47,11 @@ public class PassBookService implements IPassBookService {
         return null;
     }
 
-    public Page<PassBook> findAllPagingByIdCustomer(int id, Pageable pageable) {
-        //return passBookRepository.findAllByCustomer_IdCustomer(id,pageable);
-        return null;
+    public Page<PassBook> findAll(Pageable pageable) {
+        return passBookRepository.findAll(pageable);
+    }
+
+    public Page<PassBook> findAll2(Optional<String> date, Optional<String> date2, Optional<String> name, Pageable pageable){
+        return passBookRepository.findAllBetWeen2Days(date,date2,name,pageable);
     }
 }
