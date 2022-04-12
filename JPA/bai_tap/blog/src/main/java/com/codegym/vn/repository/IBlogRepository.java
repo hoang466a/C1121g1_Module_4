@@ -1,6 +1,6 @@
-package com.example.test.repository;
+package com.codegym.vn.repository;
 
-import com.example.test.model.Blog;
+import com.codegym.vn.model.Blog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,9 @@
-package com.example.test.controller;
+package com.codegym.vn.controller;
 
 
-import com.example.test.model.Blog;
-import com.example.test.service.BlogService;
+import com.codegym.vn.model.Blog;
+import com.codegym.vn.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.convert.ThreeTenBackPortConverters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.example.test.model;
+package com.codegym.vn.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

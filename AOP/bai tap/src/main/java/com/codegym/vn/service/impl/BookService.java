@@ -11,29 +11,32 @@ import java.util.List;
 import java.util.Optional;
 
 public class BookService implements IBookService {
+    @Autowired
+    IBookRepository iBookRepository;
+
 
     @Override
     public List<Book> findAll() {
-        return null;
+        return iBookRepository.findAll();
     }
 
     @Override
     public Page<Book> searchAllPage(Optional<String> name, Pageable pageable) {
-        return null;
+        return iBookRepository.findAllbyName(name,pageable);
     }
 
     @Override
     public Book findById(Integer id) {
-        return null;
+        return iBookRepository.findById(id).orElse(null);
     }
 
     @Override
     public void save(Book book) {
-
+        iBookRepository.save(book);
     }
 
     @Override
     public void remove(Integer id) {
-
+        iBookRepository.deleteById(id);
     }
 }

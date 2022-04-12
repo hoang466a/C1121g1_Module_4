@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class LibraryCardService implements ILibraryCardService {
+    @Autowired
+    ILibraryCardRepository libraryCardRepository;
 
     @Override
     public List<LibraryCard> findAll() {
-        return null;
+        return libraryCardRepository.findAll();
     }
 
     @Override
@@ -24,16 +26,16 @@ public class LibraryCardService implements ILibraryCardService {
 
     @Override
     public LibraryCard findById(Integer id) {
-        return null;
+        return libraryCardRepository.findById(id).orElse(null);
     }
 
     @Override
     public void save(LibraryCard libraryCard) {
-
+        libraryCardRepository.save(libraryCard);
     }
 
     @Override
     public void remove(Integer id) {
-
+        libraryCardRepository.deleteById(id);
     }
 }

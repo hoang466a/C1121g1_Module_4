@@ -1,7 +1,7 @@
-package com.example.test.service;
+package com.codegym.vn.service;
 
-import com.example.test.model.Blog;
-import com.example.test.repository.IBlogRepository;
+import com.codegym.vn.model.Blog;
+import com.codegym.vn.repository.IBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
