@@ -8,10 +8,17 @@
 <body>
 <h3>Book List</h3>
 <p>
-<a th:href="@{/book/create}">
+<div style="width: 100%">
+<a th:href="@{/book/create}" style="text-align: left">
     Add new book
 </a>
-    <form action="/book/list">
+</div>
+<div>
+    <a th:href="@{/book/return}" style="text-align: right">
+        Return book
+    </a>
+</div>
+<form action="/book/list">
     <input type="text" name="keyword">
     <button>Search</button>
 </form>
@@ -24,8 +31,6 @@
         <th>Name of book</th>
         <th>Author</th>
         <th>Value</th>
-        <th>Edit</th>
-        <th>Delete</th>
         <th>Borrow</th>
     </tr>
     </thead>
@@ -35,8 +40,6 @@
         <td th:text="${row.getNameBook()}"></td>
         <td th:text="${row.getAuthor()}"></td>
         <td th:text="${row.getValue()}"></td>
-        <td><a th:href="@{/book/{id}/edit(id=${row.getIdBook()})}" class="btn btn-info">Edit</a></td>
-        <td><a th:href="@{/book/{id}/delete(id=${row.getIdBook()})}" class="btn btn-danger">Delete</a></td>
         <td><a th:href="@{/book/{id}/borrow(id=${row.getIdBook()})}" class="btn btn-info">Borrow</a></td>
     </tr>
     </tbody>

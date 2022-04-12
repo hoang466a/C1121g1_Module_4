@@ -58,10 +58,41 @@ public class BookController {
             String value2=String.valueOf(value-1);
             book.setValue(value2);
             bookService.save(book);
+            libraryCardService.save(libraryCard);
             modelAndView.addObject("code",random);
         }
         return modelAndView;
     }
+
+    @GetMapping("/book/return")
+    public ModelAndView showReturnBook(){
+        ModelAndView modelAndView=new ModelAndView("book/return");
+        LibraryCard libraryCard=new LibraryCard();
+        modelAndView.addObject("libraryCard",libraryCard);
+        return modelAndView;
+    }
+
+    @PostMapping("/book/returnBook")
+    public ModelAndView returnBook(@ModelAttribute("libraryCard")LibraryCard libraryCard){
+        ModelAndView modelAndView=new ModelAndView();
+        LibraryCard libraryCard1=libraryCardService.findByCode(libraryCard.getCodeCard());
+        if(libraryCard1==null) {
+            modelAndView=new ModelAndView("book/error"); } else{
+            if(libraryCard1.getBook().getIdBook()!=libraryCard.getBook().getIdBook()){
+                modelAndView=new ModelAndView("book/error"); }
+            else{
+                libraryCardService.removeCard(libraryCard1);
+                Book book=bookService.findById(libraryCard1.getBook().getIdBook());
+                Integer value=Integer.parseInt(book.getValue());
+                String value2=String.valueOf(value+1);
+                book.setValue(value2);
+                bookService.save(book);
+                modelAndView=new ModelAndView("redirect:/book/list");
+            }
+        }
+        return modelAndView;}
+
+
 
 
     public String random(){

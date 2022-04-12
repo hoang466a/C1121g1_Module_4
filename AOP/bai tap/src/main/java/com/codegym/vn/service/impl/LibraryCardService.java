@@ -46,4 +46,6 @@ public class LibraryCardService implements ILibraryCardService {
     }
 
     public LibraryCard findByCode(String code){return libraryCardRepository.findByCode(code);}
+
+    public void removeCard(LibraryCard libraryCard){libraryCardRepository.delete(libraryCard);}
 }
