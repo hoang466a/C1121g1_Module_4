@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class BookController {
     public ModelAndView showAll(@PageableDefault
                                             (value=3,sort = "idBook",direction = Sort.Direction.ASC)
                                             Pageable pageable,
-                                            @RequestParam Optional<String> keywordValue){
+                                            @RequestParam(name="keyword") Optional<String> keywordValue){
         String keywordValue1=keywordValue.orElse("");
         ModelAndView modelAndView=new ModelAndView("book/list");
         Page<Book> bookList=bookService.searchAllPage(keywordValue1,pageable);
@@ -46,22 +47,22 @@ public class BookController {
     }
 
     @PostMapping("/book/borrowBook")
-    public ModelAndView borrowBook(@ModelAttribute("book")Book book) throws Exception{
-        ModelAndView modelAndView=new ModelAndView();
+    public String borrowBook(@ModelAttribute("book")Book book, RedirectAttributes redirectAttributes){
         String random=random();
         LibraryCard libraryCard=new LibraryCard(null,random,book);
         int value=Integer.parseInt(book.getValue());
         if((value-1)<0) {
-            modelAndView=new ModelAndView("book/error"); }
+            return("book/error"); }
         else{
-            modelAndView=new ModelAndView("redirect:/book/list");
             String value2=String.valueOf(value-1);
             book.setValue(value2);
             bookService.save(book);
             libraryCardService.save(libraryCard);
-            modelAndView.addObject("code",random);
+            redirectAttributes.addFlashAttribute("code",random);
+            redirectAttributes.addFlashAttribute("nameBook",book.getNameBook());
+            redirectAttributes.addFlashAttribute("idBook",book.getIdBook());
+            return ("redirect:/book/list");
         }
-        return modelAndView;
     }
 
     @GetMapping("/book/return")
