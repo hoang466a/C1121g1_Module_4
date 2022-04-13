@@ -23,8 +23,13 @@
     <button>Search</button>
 </form>
 </p>
-<h2>Mã mượn sách của bạn là: <p th:text="${code}"></p> Tên sách là : <p th:text="${nameBook}"></p> Mã sách là: <p th:text="${idBook}"></p> </h2>
-
+<div th:if="${code}">
+    <p>Mã mượn sách của bạn là: <p th:text="${code}" style="color: red"></p></p>
+</div>
+<div th:if="${book}">
+    <p>Tên sách bạn mượn là: <p th:text="${book.nameBook}" style="color: red"></p></p>
+    <p>Id sách của bạn là: <p th:text="${book.idBook}" style="color: red"></p></p>
+</div>
 <table id = "object_s">
     <thead>
     <tr>

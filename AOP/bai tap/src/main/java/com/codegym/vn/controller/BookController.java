@@ -59,8 +59,7 @@ public class BookController {
             bookService.save(book);
             libraryCardService.save(libraryCard);
             redirectAttributes.addFlashAttribute("code",random);
-            redirectAttributes.addFlashAttribute("nameBook",book.getNameBook());
-            redirectAttributes.addFlashAttribute("idBook",book.getIdBook());
+            redirectAttributes.addFlashAttribute("book",book);
             return ("redirect:/book/list");
         }
     }
