@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Spring product</title>
+
+</head>
+<body>
+<h3>Blog List</h3>
+<p>
+</p>
+<div>
+    <input type="text" name="keyword" id="keyword" placeholder="search name blog"/>
+    <input type="submit" value="Search" id="searchName">
+</div>
+<table id="blogs">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Note</th>
+        <th>Name Category</th>
+        <th>Detail</th>
+    </tr>
+    </thead>
+    <tbody id="bodyBlog">
+    </tbody>
+
+</table>
+<button id="moreBlog">More</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    let outHTML = "";
+    let index = 1;
+
+    $("#searchName").click(function () {
+        let keywordVal = $("#keyword").val();
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET", //GET, DELETE, PUT...
+            url: "http://localhost:8080/blog/search?keyword=" + keywordVal,
+            success: function (resultSuccess) {
+                let blogListSearch = resultSuccess;
+                for (let i = 0; i < blogListSearch.length; i++) {
+                    outHTML += `
+                            <tr>
+                                <td>${i + 1}</td>
+                                <td>${blogListSearch[i].nameBlog}</td>
+                                <td>${blogListSearch[i].noteBlog}</td>
+                                <td>${blogListSearch[i].category.nameCategory}</td>
+                                <td><a href="#">Detail</a></td>
+                            </tr>
+                        `;
+                    // outHTML += "<tr><td>" + (i + 1) + "</td><td></td>"
+                }
+                console.log(outHTML);
+                $("#bodyBlog").html(outHTML);
+            },
+            error: function (resultError) {
+                alert("He thong dang bao tri");
+            }
+        });
+    })
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET", //GET, DELETE, PUT...
+        url: "http://localhost:8080/blog/list",
+        success: function (resultSuccess) {
+            let blogList = resultSuccess.content;
+            // let outHTML = "";
+
+            for (let i = 0; i < blogList.length; i++) {
+                outHTML += `
+                            <tr>
+                                <td>${index++}</td>
+                                <td>${blogListSearch[i].nameBlog}</td>
+                                <td>${blogListSearch[i].noteBlog}</td>
+                                <td>${blogListSearch[i].category.nameCategory}</td>
+                                <td><a href="#">Detail</a></td>
+                            </tr>
+                        `;
+                // outHTML += "<tr><td>" + (i + 1) + "</td><td></td>"
+            }
+
+            console.log(outHTML);
+            $("#bodyBlog").html(outHTML);
+        },
+        error: function (resultError) {
+            alert("He thong dang bao tri");
+        }
+    });
+    // let more
+    let count = 1;
+    $("#moreBlog").click(function () {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET", //GET, DELETE, PUT...
+            url: "http://localhost:8080/blog/list?page=" + count++,
+            success: function (resultSuccess) {
+                let blogList = resultSuccess.content;
+                // let outHTML = "";
+
+                for (let i = 0; i < blogList.length; i++) {
+                    outHTML += `
+                            <tr>
+                                <td>${index++}</td>
+                                <td>${blogList[i].nameBlog}</td>
+                                <td>${blogList[i].noteBlog}</td>
+                                <td>${blogList[i].category.nameCategory}</td>
+                                <td><a href="#">Detail</a></td>
+                            </tr>
+                        `;
+                    // outHTML += "<tr><td>" + (i + 1) + "</td><td></td>"
+                }
+                console.log(outHTML);
+                $("#bodyBlog").html(outHTML);
+            },
+            error: function (resultError) {
+                alert("He thong dang bao tri");
+            }
+        })
+
+    })
+
+
+</script>
+</body>
+
+</html>
