@@ -42,6 +42,16 @@ public class BlogController {
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 
+    @GetMapping(value="/list")
+    public ModelAndView showAll(@PageableDefault
+                                             (value=3,sort="idBlog",direction = Sort.Direction.ASC)Pageable pageable,
+                                   @RequestParam Optional<String>keyword){
+        String keywordValue=keyword.orElse("");
+        ModelAndView modelAndView=new ModelAndView("/blog/list");
+        modelAndView.addObject("blogList",blogService.findAllPaging(keywordValue,pageable));
+        return modelAndView;
+    }
+
     @GetMapping(value="/category/{id}")
     public ResponseEntity<Page<Blog>> showListBlog(@PageableDefault
             (value=3,sort="idBlog",direction = Sort.Direction.ASC)Pageable pageable,
@@ -89,6 +99,7 @@ public class BlogController {
         blogService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
 
 
