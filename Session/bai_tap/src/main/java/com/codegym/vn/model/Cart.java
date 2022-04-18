@@ -64,4 +64,12 @@ public class Cart {
         }
         return payment;
     }
+
+    public Float countPerTotalPayment(double price){
+        float paymentPer = 0;
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            paymentPer += entry.getKey().getPrice() * (float) entry.getValue();
+        }
+        return paymentPer;
+    }
 }

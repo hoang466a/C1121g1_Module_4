@@ -100,7 +100,7 @@
                 <a id="increase_button" th:href="@{/add/__${product.getKey().id}__(action='show')}"
                    th:text="${'+'}"></a>
             </td>
-            <td th:text="${product.getKey().price}"></td>
+            <td th:text="${product.getKey().price*product.getValue()}"></td>
         </tr>
         <tr>
             <td>Total</td>
