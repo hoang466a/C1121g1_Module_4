@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.web.PageableDefault;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
-    public Page<User> findAllByFirstNameContaining(String name, Pageable pageable);
+    Page<User> findAllByFirstNameContaining(String name, Pageable pageable);
 }

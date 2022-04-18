@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>View Passbook</h3>
+<p>
+    <a th:href="@{/passbook/list}">
+        Back to pass book list
+    </a>
+</p>
+<div id="form">
+        <div>
+            <label>Id passbook</label>
+            <input type="text" readonly th:field="*{passBook.idPassBook}"/>
+        </div>
+        <div>
+            <label>Id Customer</label>
+            <input type="text" readonly th:field="*{passBook.customer.idCustomer}"/>
+        </div>
+        <div>
+            <label>Name Customer</label>
+            <input type="text" readonly th:field="*{passBook.customer.nameCustomer}"/>
+        </div>
+        <div>
+            <label>Deposit date</label>
+            <input type="text" readonly th:field="*{passBook.depositDate}"/>
+        </div>
+        <div>
+            <label>Tenor</label>
+            <input type="text" readonly th:field="*{passBook.tenor.nameTenor}" />
+        </div>
+        <div>
+            <label>Money</label>
+            <input type="text" readonly th:field="*{passBook.money}" />
+        </div>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

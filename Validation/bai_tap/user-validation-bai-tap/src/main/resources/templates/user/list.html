@@ -11,7 +11,7 @@
     <a th:href="@{/user/create}">
         Add new user
     </a>
-<form action="/category/list">
+<form action="/user/list">
     <input type="search" name="keyword">
     <button>Search</button>
 </form>
@@ -48,10 +48,8 @@
        th:if="${userList.hasPrevious()}">Previous</a>
     <span th:text="${userList.number+1}"></span> /
     <span th:text="${userList.totalPages}"></span>
-    <a
-            th:href="@{/user/list(page=${userList.number+1},keyword=${keywordValue})}"
-            th:if="${userList.hasNext()}"
-    >Next</a>
+    <a th:href="@{/user/list(page=${userList.number+1},keyword=${keywordValue})}"
+            th:if="${userList.hasNext()}">Next</a>
 </div>
 
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Add PassBook/h3>
+    <p>
+        <a th:href="@{/passbook/list}">
+            Back to passbook list
+        </a>
+    </p>
+    <center>
+        <div id="form">
+            <form th:action="@{/passbook/update}" th:object="${passBookDTO}"
+                  method="POST" novalidate="novalidate">
+                <div>
+                    <label>Id Pass book</label>
+                    <input type="text" readonly th:field="*{idPassBook}"/>
+                </div>
+                <div>
+                    <label>Id Customer</label>
+                    <input type="text" readonly th:field="*{customer.idCustomer}"/>
+                </div>
+                <div style="color: red" th:errors="*{customer.idCustomer}"> </div>
+                <div>
+                    <label>Name Customer</label>
+                    <input type="text" th:field="*{customer.nameCustomer}"/>
+                </div>
+                <div style="color: red" th:errors="*{customer.nameCustomer}"> </div>
+                <div>
+                    <label>Deposit date</label>
+                    <input type="text" th:field="*{depositDate}"/>
+                </div>
+                <div style="color: red" th:errors="*{depositDate}"> </div>
+                <div>
+                    <label>Tenor</label>
+                    <select th:field="*{tenor.idTenor}">
+                        <option th:each="cate : ${tenorList}"
+                                th:value="${cate.idTenor}"
+                                th:utext="${cate.nameTenor}"/>
+                    </select>
+                </div>
+                <div style="color: red" th:errors="*{tenor.idTenor}"> </div>
+                <div>
+                    <label>Money</label>
+                    <input type="text" th:field="*{money}">
+                </div>
+                <div style="color: red" th:errors="*{money}"> </div>
+                <input type="submit" value="Save"/>
+            </form>
+        </div>
+    </center>
+    <footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

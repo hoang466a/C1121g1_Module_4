@@ -32,7 +32,8 @@ public class UserController {
     IUserService userService;
 
     @GetMapping("/user/list")
-    public ModelAndView showList(@PageableDefault(value=3,sort="idUser",direction= Sort.Direction.ASC)Pageable pageable,
+    public ModelAndView showList(@PageableDefault(value=3,sort="idUser",direction= Sort.Direction.ASC)
+                                             Pageable pageable,
                                  @RequestParam Optional<String> keyword){
         String keywordValue=keyword.orElse("");
         ModelAndView modelAndView=new ModelAndView("user/list");
@@ -67,10 +68,4 @@ public class UserController {
             return modelAndView;
         }
     }
-
-
-
-
-
-
 }
