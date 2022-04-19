@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add SmartPhone</title>
+    <link rel="stylesheet" href="css/mdb.min.css">
+</head>
+<body>
+<form >
+    <table>
+        <tr>
+            <td>Producer:</td>
+            <td><input type="text" id="producer" placeholder="producer"></td>
+        </tr>
+        <tr>
+            <td>Model:</td>
+            <td><input type="text" id="model" placeholder="model"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="text" id="price" placeholder="price"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Add" onclick="saveSmartPhone()">
+            </td>
+            <td><input type="submit" id="update" value="Update">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script type="text/javascript">
+    let editId;
+    function saveSmartPhone() {
+        let producer = $('#producer').val();
+        let model = $('#model').val();
+        let price = $('#price').val();
+        let newSmartphone = {
+            producer: producer,
+            model: model,
+            price: price
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(newSmartphone),
+            url: "http://localhost:8080/smartphone/create",
+            success: successHandler
+
+        });
+        event.preventDefault();
+    }
+    function getSmartphone(smartphone) {
+        return `<tr>
+                    <td >${smartphone.producer}</td>
+                    <td >${smartphone.model}</td>
+                    <td >${smartphone.price}</td>` +
+            `       <td><a class="deleteSmartphone" href="${smartphone.id}" >Delete</a></td>
+                    <td><a class="editSmartphone" href="${smartphone.id}" >Edit</a></td>
+                </tr>`;
+    }
+    $(document).ready(function () {
+        $('.deleteSmartphone').click(function (event) {
+            let a = $(this);
+            let smartphoneId = a.attr("href");
+            console.log(smartphoneId);
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "DELETE",
+                url: `http://localhost:8080/smartphone/${smartphoneId}` ,
+                success: function (data) {
+                    a.parent().parent().remove();
+                }
+            });
+            event.preventDefault();
+        });
+    })
+
+
+    $(".editSmartphone").click(function () {
+        let a = $(this);
+        let phoneId = a.attr("href");
+        $.ajax({
+            type: "GET",
+            url: `http://localhost:8080/smartphone/`+phoneId,
+            success: function (resultSuccess) {
+                editId = resultSuccess.id;
+                $("#producer").val(resultSuccess.producer);
+                $("#model").val(resultSuccess.model);
+                $("#price").val(resultSuccess.price);
+            }
+        });
+        event.preventDefault();
+    });
+    $("#update").click(function () {
+        let producer = $("#producer").val();
+        let model = $("#model").val();
+        let price = $("#price").val();
+        let UpdateSmartphone= {
+            id: editId,
+            producer: producer,
+            model: model,
+            price: price
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PATCH",
+            data: JSON.stringify(UpdateSmartphone),
+            url: "http://localhost:8080/smartphone/update",
+
+            success: function () {
+                location.reload();
+                $("#update").hide();
+                $("#submit").show();
+
+            },
+            error: function (resultError) {
+                alert("He thong dang bao tri");
+            },
+        });
+    });
+
+</body>
+</html>

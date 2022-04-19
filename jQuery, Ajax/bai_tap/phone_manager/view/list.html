@@ -19,7 +19,7 @@
         </div>
         <div class="row w-50 mx-auto">
             <div class="col-lg-12">
-                <h2>List student Momo</h2>
+                <h2>List SmartPhone</h2>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -40,6 +40,42 @@
 
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/mdb.min.js"></script>
+    <script>
+        $('#btnSearch').click(function(){
+            let keywordValue=$('#keyword').val();
+
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type:"GET",
+                url:"http://localhost:8080/smartphone/list?keyword="+keywordValue,
+                success:function(resultSuccess){
+                    let smartphoneList=resultSuccess.content;
+                    let outHTML="";
+
+                    for(let i=0;i<smartphoneList.length;i++){
+                        outHTML +=`
+                        <tr>
+                            <td>${i+1}</td>
+                            <td>${smartphoneList[i].id}</td>
+                            <td>${smartphoneList[i].model}</td>
+                            <td>${smartphoneList[i].producer}</td>
+                            <td>${smartphoneList[i].price}</td>
+                        </tr>
+                        `;
+                    }
+                    console.log(outHTML);
+                    $("#bodySmartphone").html(outHTML);
+                },
+                error: function(resultError){
+                    alert("He thong dang bao tri");
+                }
+            });
+
+        });
+    </script>
     
 </body>
 </html>
