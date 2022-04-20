@@ -13,7 +13,8 @@ import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 public class CustomerDTO implements Validator {
-    @NotNull(message = "Không được để trống!")
+    //@NotNull(message = "Không được để trống!")
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCustomer;
     //@NotBlank(message = "Nhập vào không hợp lệ!")
     @Pattern(regexp = "[a-zA-Z][a-zA-Z ]{1,}",message = "Nhập vào không hợp lệ")

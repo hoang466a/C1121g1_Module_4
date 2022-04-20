@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout ::head">
+    <meta charset="UTF-8">
+    <title>Category List</title>
+</head>
+<link reel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<body>
+<h3>Category List</h3>
+<p>
+    <a th:href="@{/category/create}">
+        Add new category
+    </a>
+    <form action="/category/list">
+    <input type="search" name="keyword">
+    <button>Search</button>
+</form>
+
+</p>
+<table id = "object_s">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${categoryList}">
+        <td th:text="${row.getIdCategory()}"></td>
+        <td th:text="${row.getNameCategory()}"></td>
+        <td><a th:href="@{/category/{id}/edit(id=${row.getIdCategory()})}" class="btn btn-info">Edit</a></td>
+        <td><a th:href="@{/category/{id}/delete(id=${row.getIdCategory()})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/category/{id}/view(id=${row.getIdCategory()})}" class="btn btn-info">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/category/list(page=${categoryList.number-1},keyword=${keywordValue})}"
+       th:if="${categoryList.hasPrevious()}">Previous</a>
+    <span th:text="${categoryList.number+1}"></span> /
+    <span th:text="${categoryList.totalPages}"></span>
+    <a
+            th:href="@{/category/list(page=${categoryList.number+1},keyword=${keywordValue})}"
+            th:if="${categoryList.hasNext()}"
+    >Next</a>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

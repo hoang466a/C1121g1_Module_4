@@ -7,6 +7,7 @@ import java.util.Set;
 @Entity
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCustomer;
     private String nameCustomer;
 

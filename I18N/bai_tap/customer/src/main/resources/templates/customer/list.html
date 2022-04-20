@@ -8,12 +8,12 @@
 <body>
 <h3 th:text="#{customer.heading}"></h3>
 <p>
-<a th:href="@{/customer/create}" th:value="#{customer.add}">
+<a th:href="@{/customer/create}" th:text="#{customer.add}">
     Add new customer
 </a>
     <form action="/customer/list">
     <input type="text" name="keyword">
-    <button th:value="#{customer.search}">Search</button>
+    <button th:value="#{customer.search}" th:text="#{customer.search}">Search</button>
 </form>
 </p>
 Language:<a href="?lang=en">English</a>|<a href="?lang=vi">Vietnamese</a>
