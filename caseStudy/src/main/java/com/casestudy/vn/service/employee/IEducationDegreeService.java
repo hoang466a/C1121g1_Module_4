@@ -1,7 +1,11 @@
 package com.casestudy.vn.service.employee;
 
+import com.casestudy.vn.model.employee.Division;
 import com.casestudy.vn.model.employee.EducationDegree;
 import com.casestudy.vn.service.IGeneralService;
 
-public interface IEducationDegreeService extends IGeneralService<EducationDegree> {
+import java.util.List;
+
+public interface IEducationDegreeService {
+    List<EducationDegree> findAll();
 }

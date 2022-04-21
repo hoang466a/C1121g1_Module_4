@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout ::head">
+    <meta charset="UTF-8">
+    <title>Customer List</title>
+</head>
+<link reel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<body>
+<h3>Customer List</h3>
+<p>
+    <a th:href="@{/customer/create}">
+        Add new customer
+    </a>
+<form action="/customer">
+    <input type="search" name="keyword">
+    <button>Search</button>
+</form>
+
+</p>
+<table id = "object_s">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Gender</th>
+        <th>Id Card</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${customerList}">
+        <td th:text="${row.getCustomerName()}"></td>
+        <td th:text="${#dates.format(row.getCustomerBirthday(),'dd-MM-YYYY')}"></td>
+        <td th:text="${row.customerGender}?nam:nữ"></td>
+        <td th:text="${row.getCustomerIdCard()}"></td>
+        <td th:text="${row.getCustomerPhone()}"></td>
+        <td th:text="${row.getCustomerEmail()}"></td>
+        <td th:text="${row.getCustomerAddress()}"></td>
+        <td><a th:href="@{/customer/{id}/edit(id=${row.getCustomerId()})}" class="btn btn-info">Edit</a></td>
+        <td><a th:href="@{/customer/{id}/delete(id=${row.getCustomerId()})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/customer/{id}/view(id=${row.getCustomerId()})}" class="btn btn-info">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/customer/list(page=${customerList.number-1},keyword=${keyWordValue})}"
+       th:if="${customerList.hasPrevious()}">Previous</a>
+    <span th:text="${customerList.number+1}"></span> /
+    <span th:text="${customerList.totalPages}"></span>
+    <a th:href="@{/customer/list(page=${customerList.number+1},keyword=${keyWordValue})}"
+            th:if="${customerList.hasNext()}">Next</a>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

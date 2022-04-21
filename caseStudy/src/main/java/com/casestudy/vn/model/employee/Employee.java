@@ -8,9 +8,9 @@ import java.util.Date;
 @Entity
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer employeeId;
     private String employeeName;
-    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private Date employeeBirthday;
     private String employeeIdCard;
     private String employeeSalary;

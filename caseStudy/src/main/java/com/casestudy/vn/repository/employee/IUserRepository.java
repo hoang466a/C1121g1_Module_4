@@ -1,4 +1,4 @@
-package com.casestudy.vn.repository;
+package com.casestudy.vn.repository.employee;
 
 import com.casestudy.vn.model.employee.User;
 import org.springframework.data.jpa.repository.JpaRepository;

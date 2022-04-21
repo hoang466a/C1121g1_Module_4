@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Add User</h3>
+<p>
+    <a th:href="@{/user/list}">
+        Back to user list
+    </a>
+</p>
+    <form th:action="@{/user/saveUser}" th:object="${userDTO}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{idUser}"/>
+        <div>
+            <label>First Name</label>
+            <input type="text" th:field="*{firstName}"/>
+        </div>
+        <div style="color: red" th:errors="*{firstName}"> </div>
+        <div>
+            <label>Last Name</label>
+            <input type="text" th:field="*{lastName}"/>
+        </div>
+        <div style="color: red" th:errors="*{lastName}"> </div>
+        <div>
+            <label>Phone Number</label>
+            <input type="text" th:field="*{phoneNumber}"/>
+        </div>
+        <div style="color: red" th:errors="*{phoneNumber}"> </div>
+        <div>
+            <label>Date of birth</label>
+            <input type="date" th:field="*{dateOfBirth}"/>
+        </div>
+        <div style="color: red" th:errors="*{dateOfBirth}"> </div>
+        <div>
+            <label>Email</label>
+            <input type="text" th:field="*{email}"/>
+        </div>
+        <div style="color: red" th:errors="*{email}"> </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
