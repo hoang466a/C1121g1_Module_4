@@ -58,8 +58,8 @@ public class UserController {
         User user = new User();
         if(bindingResult.hasFieldErrors()){
             ModelAndView modelAndView=new ModelAndView("/user/create");
-//            UserDTO userDTO1=new UserDTO();
-//            modelAndView.addObject("user",userDTO1);
+            UserDTO userDTO1=new UserDTO();
+            modelAndView.addObject("user",userDTO1);
             return modelAndView;
         } else {
             ModelAndView modelAndView=new ModelAndView("redirect:/user/list");

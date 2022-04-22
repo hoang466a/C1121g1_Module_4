@@ -22,6 +22,7 @@ public class UserDTO implements Validator {
     @Size(min=5,max=45)
     private String lastName;
     private String phoneNumber;
+    @NotBlank
     private String dateOfBirth;
     @Email(message = "Không đúng định dạng email, xin nhập lại!")
     private String email;
@@ -85,10 +86,16 @@ public class UserDTO implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         UserDTO userDTO=(UserDTO)target;
-        Integer yearPast=Integer.parseInt(userDTO.dateOfBirth.substring(0,4));
-        Integer yearCurrent= LocalDate.now().getYear();
-        if(yearCurrent-yearPast<18){
-            errors.rejectValue("dateOfBirth","std.not18","Dưới 18 tuổi, không hợp lệ!");
+        if(userDTO.dateOfBirth.equals(""))
+        {
+            errors.rejectValue("dateOfBirth","std.notnull","Hãy điền ngày tháng vào, không hợp lệ!");
+        }
+        else{
+            Integer yearPast=Integer.parseInt(userDTO.dateOfBirth.substring(0,4));
+            Integer yearCurrent= LocalDate.now().getYear();
+            if(yearCurrent-yearPast<18){
+                errors.rejectValue("dateOfBirth","std.not18","Dưới 18 tuổi, không hợp lệ!");
+            }
         }
     }
 }
