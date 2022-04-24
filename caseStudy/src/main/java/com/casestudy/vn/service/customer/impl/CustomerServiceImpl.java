@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public Page<Customer> searchAllPage(String name, Pageable pageable) {
-        return customerRepository.findAllByCustomerNameContaining(name,pageable);
+        return customerRepository.findAllByName("%"+name+"%",pageable);
     }
 
     @Override

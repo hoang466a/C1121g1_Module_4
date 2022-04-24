@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
-    /*@Query(value="select u from Customer u where u.customerName=?1 order by u.customerId")
-    Page<Customer> findAllByName(String name, Pageable pageable);*/
-    Page<Customer> findAllByCustomerNameContaining(String name,Pageable pageable);
+    @Query(value="select * from customer where customer_name like ?1 order by customer_id ",nativeQuery=true)
+    Page<Customer> findAllByName(String name, Pageable pageable);
+   // Page<Customer> findAllByCustomerNameContaining(String name,Pageable pageable);
 }

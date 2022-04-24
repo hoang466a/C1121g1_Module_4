@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout ::head">
+    <meta charset="UTF-8">
+    <title>Service List</title>
+</head>
+<link reel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<body>
+<h3>Service List</h3>
+<p>
+    <a th:href="@{/customer/create}">
+        Add new service
+    </a>
+<form action="/service">
+    <input type="search" name="keyword">
+    <button>Search</button>
+</form>
+
+</p>
+<table id = "object_s">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Area</th>
+        <th>Cost</th>
+        <th>Max People</th>
+        <th>Standard Room</th>
+        <th>Description Other Convenience</th>
+        <th>Pool Area</th>
+        <th>Number Of Floor</th>
+        <th>Rent Type</th>
+        <th>Service Type</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${serviceList}">
+        <td th:text="${row.getServiceName()}"></td>
+        <td th:text="${row.getServiceArea()}"></td>
+        <td th:text="${#numbers.formatDecimal(row.getServiceCost(),0,1)}"></td>
+        <td th:text="${row.getServiceMaxPeople()}"></td>
+        <td th:text="${row.getStandardRoom()}"></td>
+        <td th:text="${row.getDescriptionOtherConvenience()}"></td>
+        <td th:text="${row.getPoolArea()}"></td>
+        <td th:text="${row.getNumberOfFloor()}"></td>
+        <td th:text="${row.rentType.getRentTypeName()}"></td>
+        <td th:text="${row.serviceType.getServiceTypeName()}"></td>
+        <td><a th:href="@{/service/{id}/edit(id=${row.getServiceId()})}" class="btn btn-info">Edit</a></td>
+        <td><a th:href="@{/service/{id}/delete(id=${row.getServiceId()})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/service/{id}/view(id=${row.getServiceId()})}" class="btn btn-info">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/service(page=${serviceList.number-1},keyword=${keyWordValue})}"
+       th:if="${serviceList.hasPrevious()}">Previous</a>
+    <span th:text="${serviceList.number+1}"></span> /
+    <span th:text="${serviceList.totalPages}"></span>
+    <a th:href="@{/service(page=${serviceList.number+1},keyword=${keyWordValue})}"
+            th:if="${serviceList.hasNext()}">Next</a>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
