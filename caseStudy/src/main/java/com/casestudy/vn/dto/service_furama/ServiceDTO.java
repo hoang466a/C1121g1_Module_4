@@ -18,7 +18,7 @@ public class ServiceDTO implements Validator {
     @Pattern(regexp="^[0-9]*$",message = "sai kiểu dữ liệu nhập vào")
     private String serviceArea;
 
-    @Pattern(regexp="^[0-9]*$",message = "sai kiểu dữ liệu nhập vào")
+    @Pattern(regexp="^[0-9]*",message = "sai kiểu dữ liệu nhập vào")
     @NotBlank(message = "không được để trống dữ liệu")
     private String serviceCost;
 
@@ -164,7 +164,7 @@ public class ServiceDTO implements Validator {
             errors.rejectValue("poolArea",
                     "std.number","Số không được âm, xin nhập lại!"); }
 
-        if(!serviceDTO.numberOfFloor.equals("")&&
+        if(!serviceDTO.numberOfFloor.equals("")||
                 Double.parseDouble(serviceDTO.numberOfFloor)<0) {
             errors.rejectValue("numberOfFloor",
                     "std.number","Số không được âm, xin nhập lại!");}

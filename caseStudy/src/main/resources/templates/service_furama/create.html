@@ -2,63 +2,85 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/layout :: head"></head>
 <body>
-<h3>Add Customer</h3>
+<h3>Add Service</h3>
 <p>
-    <a th:href="@{/customer}">
-        Back to customer list
+    <a th:href="@{/service}">
+        Back to service list
     </a>
 </p>
 
 <div id="form">
-    <form th:action="@{/customer/save}" th:object="${customerDTO}"
+    <form th:action="@{/service_furama/save}" th:object="${serviceDTO}"
           method="POST" >
-        <input type="hidden" th:field="*{customerId}"/>
+        <input type="hidden" th:field="*{serviceId}"/>
         <div>
             <label>Name</label>
-            <input type="text" th:field="*{customerName}"/>
-            <p th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" style="color: red"></p>
+            <input type="text" th:field="*{serviceName}"/>
+            <p th:if="${#fields.hasErrors('serviceName')}" th:errors="*{serviceName}" style="color: red"></p>
         </div>
         <div>
-            <label>Birthday</label>
-            <input type="date" th:field="*{customerBirthday}"/>
-            <p th:if="${#fields.hasErrors('customerBirthday')}" th:errors="*{customerBirthday}" style="color: red"></p>
+            <label>Area</label>
+            <input type="text" th:field="*{serviceArea}"/>
+            <p th:if="${#fields.hasErrors('serviceArea')}" th:errors="*{serviceArea}" style="color: red"></p>
         </div>
 
         <div>
-            <label>Gender</label>
-            <select th:field="*{customerGender}">
-                <option th:value=true th:text="Male"></option>
-                <option th:value=false th:text="Female"></option>
+            <label>Cost</label>
+            <input type="text" th:field="*{serviceCost}"/>
+            <p th:if="${#fields.hasErrors('serviceCost')}" th:errors="*{serviceCost}" style="color: red"></p>
+        </div>
+
+        <div>
+            <label>Max People</label>
+            <input type="text" th:field="*{serviceMaxPeople}"/>
+            <p th:if="${#fields.hasErrors('serviceMaxPeople')}" th:errors="*{serviceMaxPeople}" style="color: red"></p>
+        </div>
+
+        <div>
+            <label>Standard Room</label>
+            <select th:field="*{standardRoom}">
+                <option th:value="Vip" th:text="Vip"></option>
+                <option th:value="Normal" th:text="Normal"></option>
             </select>
         </div>
+
         <div>
-            <label>Id Card</label>
-            <input type="text" th:field="*{customerIdCard}"/>
-            <p th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}" style="color: red"></p>
+            <label>Description Other Convenience</label>
+            <input type="text" th:field="*{descriptionOtherConvenience}">
         </div>
+
         <div>
-            <label>Phone</label>
-            <input type="text" th:field="*{customerPhone}"/>
-            <p th:if="${#fields.hasErrors('customerPhone')}" th:errors="*{customerPhone}" style="color: red"></p>
+            <label>Pool Area</label>
+            <input type="text" th:field="*{poolArea}">
+            <p th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}" style="color: red"></p>
         </div>
+
         <div>
-            <label>Email</label>
-            <input type="text" th:field="*{customerEmail}"/>
-            <p th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}" style="color: red"></p>
+            <label>Number Of Floor</label>
+            <input type="text" th:field="*{numberOfFloor}">
+            <p th:if="${#fields.hasErrors('numberOfFloor')}" th:errors="*{numberOfFloor}" style="color: red"></p>
         </div>
+
         <div>
-            <label>Address</label>
-            <input type="text" th:field="*{customerAddress}"/>
-        </div>
-        <div>
-            <label>Customer Type</label>
-            <select th:field="*{customerType}">
-                <option th:each="type : ${customerTypeList}"
-                        th:value="${type.getCustomerTypeId()}"
-                        th:utext="${type.getCustomerTypeName()}"/>
+            <label>Rent Type</label>
+            <select th:field="*{rentType}">
+               <option th:each="type:${rentTypeList}"
+               th:value="${type.getRentTypeId()}"
+               th:text="${type.getRentTypeName()} "/>
+                <p th:if="${#fields.hasErrors('rentType')}" th:errors="*{rentType}" style="color: red"></p>
             </select>
-            <p th:if="${#fields.hasErrors('customerType')}" th:errors="*{customerType}" style="color: red"></p>
         </div>
+
+        <div>
+            <label>Service Type</label>
+            <select th:field="*{serviceType}">
+                <option th:each="type:${serviceTypeList}"
+                        th:value="${type.getServiceTypeId()}"
+                        th:text="${type.getServiceTypeName()} "/>
+                <p th:if="${#fields.hasErrors('serviceType')}" th:errors="*{serviceType}" style="color: red"></p>
+            </select>
+        </div>
+
         <input type="submit" value="Save"/>
     </form>
 </div>
