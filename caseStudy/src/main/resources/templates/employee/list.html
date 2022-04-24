@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout ::head">
+    <meta charset="UTF-8">
+    <title>Service List</title>
+</head>
+<link reel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<body>
+<h3>Employee List</h3>
+<p>
+    <a th:href="@{/employee/create}">
+        Add new employee
+    </a>
+<form action="/employee">
+    <input type="search" name="keyword">
+    <button>Search</button>
+</form>
+
+</p>
+<table id = "object_s">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Id Card</th>
+        <th>Salary</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Adress</th>
+        <th>Position</th>
+        <th>Education Degree</th>
+        <th>Division</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${employeeList}">
+        <td th:text="${row.getEmployeeName()}"></td>
+        <td th:text="${#dates.format(row.getEmployeeBirthday(),'dd-MM-YYYY')}"></td>
+        <td th:text="${row.getEmployeeIdCard()}"></td>
+        <td th:text="${#numbers.formatDecimal(row.getEmployeeSalary(),0,1)}"></td>
+        <td th:text="${row.getEmployeePhone()}"></td>
+        <td th:text="${row.getEmployeeEmail()}"></td>
+        <td th:text="${row.getEmployeeAddress()}"></td>
+        <td th:text="${row.position.getPositionName()}"></td>
+        <td th:text="${row.educationDegree.getEducationDegreeName()}"></td>
+        <td th:text="${row.division.getDivisionName()}"></td>
+        <td><a th:href="@{/employee/{id}/edit(id=${row.getEmployeeId()})}" class="btn btn-info">Edit</a></td>
+        <td><a th:href="@{/employee/{id}/delete(id=${row.getEmployeeId()})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/employee/{id}/view(id=${row.getEmployeeId()})}" class="btn btn-info">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/employee(page=${employeeList.number-1},keyword=${keyWordValue})}"
+       th:if="${employeeList.hasPrevious()}">Previous</a>
+    <span th:text="${employeeList.number+1}"></span> /
+    <span th:text="${employeeList.totalPages}"></span>
+    <a th:href="@{/employee(page=${employeeList.number+1},keyword=${keyWordValue})}"
+            th:if="${employeeList.hasNext()}">Next</a>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

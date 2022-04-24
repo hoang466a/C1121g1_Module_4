@@ -60,6 +60,7 @@ public class ServiceController {
     @PostMapping("/service_furama/save")
     public ModelAndView saveService(@Valid @ModelAttribute ServiceDTO serviceDTO,
                                      BindingResult bindingResult){
+        serviceDTO.validate(serviceDTO,bindingResult);
         if(bindingResult.hasErrors()){
             ModelAndView modelAndView=new ModelAndView("service_furama/create");
             modelAndView.addObject("rentTypeList",rentTypeService.findAll());
@@ -67,6 +68,14 @@ public class ServiceController {
             return modelAndView;
         }
         else{
+            if (serviceDTO.getServiceArea().trim().isEmpty()) {
+                serviceDTO.setServiceArea(null); }
+            if (serviceDTO.getServiceMaxPeople().trim().isEmpty()) {
+                serviceDTO.setServiceMaxPeople(null); }
+            if (serviceDTO.getPoolArea().trim().isEmpty()) {
+                serviceDTO.setPoolArea(null); }
+            if (serviceDTO.getNumberOfFloor().trim().isEmpty()) {
+                serviceDTO.setNumberOfFloor(null); }
             Service service=new Service();
             ModelAndView modelAndView=new ModelAndView("redirect:/service");
             BeanUtils.copyProperties(serviceDTO,service);

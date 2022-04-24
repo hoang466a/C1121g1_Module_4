@@ -1,5 +1,7 @@
 package com.casestudy.vn.model.employee;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,6 +14,10 @@ public class User {
     public User() {
     }
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Set<Employee> employeeSet;
+
     public Set<Employee> getEmployeeSet() {
         return employeeSet;
     }
@@ -20,8 +26,6 @@ public class User {
         this.employeeSet = employeeSet;
     }
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Set<Employee> employeeSet;
 
     public String getUsername() {
         return username;

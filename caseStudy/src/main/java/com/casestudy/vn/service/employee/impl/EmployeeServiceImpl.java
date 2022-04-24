@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public Page<Employee> searchAllPage(String name, Pageable pageable) {
-        return employeeRepository.findAllByName("%"+name+"%",pageable);
+        return employeeRepository.findAllByEmployeeNameContaining(name,pageable);
     }
 
     @Override

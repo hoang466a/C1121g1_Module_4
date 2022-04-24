@@ -14,27 +14,13 @@ public class ServiceDTO implements Validator {
     private Integer serviceId;
     @NotBlank(message = "không được để trống tên!")
     private String serviceName;
-
-    @Pattern(regexp="^[0-9]*$",message = "sai kiểu dữ liệu nhập vào")
     private String serviceArea;
-
-    @Pattern(regexp="^[0-9]*",message = "sai kiểu dữ liệu nhập vào")
     @NotBlank(message = "không được để trống dữ liệu")
     private String serviceCost;
-
-    @Pattern(regexp="^[0-9]*$",message = "sai kiểu dữ liệu nhập vào")
     private String serviceMaxPeople;
-
     private String standardRoom;
-
     private String descriptionOtherConvenience;
-
-
-    @Pattern(regexp="^[0-9]*$",message = "sai kiểu dữ liệu nhập vào")
     private String poolArea;
-
-
-    @Pattern(regexp="^[0-9]*$",message = "sai kiểu dữ liệu nhập vào")
     private String numberOfFloor;
 
 
@@ -142,33 +128,59 @@ public class ServiceDTO implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        ServiceDTO serviceDTO=(ServiceDTO)target;
-        if(!serviceDTO.serviceArea.equals("")&&
-                Double.parseDouble(serviceDTO.serviceArea)<0) {
-            errors.rejectValue("serviceArea",
-                    "std.number","Số không được âm, xin nhập lại!"); }
+        ServiceDTO serviceDTO = (ServiceDTO) target;
 
-        if(serviceDTO.serviceCost.equals("")){
-            errors.rejectValue("serviceCost",
-                    "std.notnull","Ô điền giá không được để trống!"); } else{
-            if(Double.parseDouble(serviceDTO.serviceCost)<0){
+        if (serviceDTO.serviceArea.trim().isEmpty()) {
+        } else {
+            if (!serviceDTO.serviceArea.matches("^(-?)[0-9]*$")) {
+                errors.rejectValue("serviceArea",
+                        "std.type", "Định dạng nhập vào không hợp lệ");
+            } else if (Double.parseDouble(serviceDTO.serviceArea) < 0) {
+                errors.rejectValue("serviceArea",
+                        "std.number", "Số không được âm, xin nhập lại!");
+            } }
+
+
+        if (serviceDTO.serviceCost.trim().isEmpty()) {
+        } else {
+            if (!serviceDTO.serviceCost.matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")) {
                 errors.rejectValue("serviceCost",
-                        "std.number","Số không được âm, xin nhập lại!"); } }
+                        "std.type", "Định dạng nhập vào không hợp lệ!");
+            } else if (Double.parseDouble(serviceDTO.serviceCost) < 0) {
+                errors.rejectValue("serviceCost",
+                        "std.number", "Số không được âm, xin nhập lại!");
+            }
+        }
 
-        if(!serviceDTO.serviceMaxPeople.equals("")&&
-                Double.parseDouble(serviceDTO.serviceMaxPeople)<0) {
-            errors.rejectValue("serviceMaxPeople",
-                    "std.number","Số không được âm, xin nhập lại!"); }
-        if(!serviceDTO.poolArea.equals("")&&
-                Double.parseDouble(serviceDTO.poolArea)<0) {
-            errors.rejectValue("poolArea",
-                    "std.number","Số không được âm, xin nhập lại!"); }
+        if (serviceDTO.serviceMaxPeople.trim().isEmpty()) {
+        } else {
+            if (!serviceDTO.serviceMaxPeople.matches("^(-?)[0-9]*$")) {
+                errors.rejectValue("serviceMaxPeople",
+                        "std.type", "Định dạng nhập vào không hợp lệ");
+            } else if (Double.parseDouble(serviceDTO.serviceMaxPeople) < 0) {
+                errors.rejectValue("serviceMaxPeople",
+                        "std.number", "Số không được âm, xin nhập lại!");
+            } }
 
-        if(!serviceDTO.numberOfFloor.equals("")||
-                Double.parseDouble(serviceDTO.numberOfFloor)<0) {
-            errors.rejectValue("numberOfFloor",
-                    "std.number","Số không được âm, xin nhập lại!");}
+        if (serviceDTO.poolArea.trim().isEmpty()) {
+        } else {
+            if (!serviceDTO.poolArea.matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")) {
+                errors.rejectValue("poolArea",
+                        "std.type", "Định dạng nhập vào không hợp lệ!");
+            } else if (Double.parseDouble(serviceDTO.poolArea) < 0) {
+                errors.rejectValue("poolArea",
+                        "std.number", "Số không được âm, xin nhập lại!");
+            }
+        }
 
-
+        if (serviceDTO.numberOfFloor.trim().isEmpty()) {
+        } else {
+            if (!serviceDTO.numberOfFloor.matches("^(-?)[0-9]*$")) {
+                errors.rejectValue("numberOfFloor",
+                        "std.type", "Định dạng nhập vào không hợp lệ");
+            } else if (Double.parseDouble(serviceDTO.numberOfFloor) < 0) {
+                errors.rejectValue("numberOfFloor",
+                        "std.number", "Số không được âm, xin nhập lại!");
+            } }
     }
 }
