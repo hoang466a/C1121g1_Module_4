@@ -29,7 +29,7 @@ public class Employee {
     @JoinColumn(name="division_id",referencedColumnName = "divisionId")
     private Division division;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="username",referencedColumnName = "username")
     private User user;
 

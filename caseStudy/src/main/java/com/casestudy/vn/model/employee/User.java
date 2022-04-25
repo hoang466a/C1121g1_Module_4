@@ -15,17 +15,16 @@ public class User {
     }
 
     @JsonBackReference
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Set<Employee> employeeSet;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private Employee employee;
 
-    public Set<Employee> getEmployeeSet() {
-        return employeeSet;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeSet(Set<Employee> employeeSet) {
-        this.employeeSet = employeeSet;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
-
 
     public String getUsername() {
         return username;

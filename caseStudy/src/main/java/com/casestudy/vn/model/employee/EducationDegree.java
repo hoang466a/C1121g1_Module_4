@@ -9,14 +9,23 @@ import java.util.Set;
 public class EducationDegree {
     @Id
     private Integer educationDegreeId;
-    private Integer educationDegreeName;
-
-    public EducationDegree() {
-    }
+    private String educationDegreeName;
 
     @JsonBackReference
     @OneToMany(mappedBy = "educationDegree",cascade = CascadeType.ALL)
     private Set<Employee> employeeSet;
+
+    public String getEducationDegreeName() {
+        return educationDegreeName;
+    }
+
+    public void setEducationDegreeName(String educationDegreeName) {
+        this.educationDegreeName = educationDegreeName;
+    }
+
+    public EducationDegree() {
+    }
+
 
     public Set<Employee> getEmployeeSet() {
         return employeeSet;
@@ -34,11 +43,4 @@ public class EducationDegree {
         this.educationDegreeId = educationDegreeId;
     }
 
-    public Integer getEducationDegreeName() {
-        return educationDegreeName;
-    }
-
-    public void setEducationDegreeName(Integer educationDegreeName) {
-        this.educationDegreeName = educationDegreeName;
-    }
 }
