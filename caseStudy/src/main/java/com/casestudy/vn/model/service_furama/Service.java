@@ -13,10 +13,12 @@ public class Service {
     private Integer serviceId;
     private String serviceName;
     private String serviceArea;
+    @Column(columnDefinition = "Decimal(10,2)")
     private String serviceCost;
     private String serviceMaxPeople;
     private String standardRoom;
     private String descriptionOtherConvenience;
+    @Column(columnDefinition = "Decimal(10,2)")
     private String poolArea;
     private String numberOfFloor;
     @JsonBackReference

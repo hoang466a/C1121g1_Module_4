@@ -20,6 +20,9 @@ public class CustomerDTO implements Validator {
     private Integer customerId;
     @NotBlank
     private String customerName;
+    @NotBlank
+    @Pattern(regexp="^KH-[0-9]{4}$",message = "Định dạng nhập yêu cầu: KH-XXXX")
+    private String customerCode;
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     @NotNull
     private Date customerBirthday;
@@ -45,6 +48,14 @@ public class CustomerDTO implements Validator {
         this.contractSet = contractSet;
     }
     public CustomerDTO() {
+    }
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 
     public Integer getCustomerId() {

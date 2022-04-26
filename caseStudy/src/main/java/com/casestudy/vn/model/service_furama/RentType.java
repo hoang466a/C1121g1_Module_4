@@ -1,9 +1,6 @@
 package com.casestudy.vn.model.service_furama;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -11,6 +8,7 @@ public class RentType {
     @Id
     private Integer rentTypeId;
     private String rentTypeName;
+    @Column(columnDefinition = "Decimal(10,2)")
     private double rentTypeCost;
 
     @OneToMany(mappedBy = "rentType",cascade = CascadeType.ALL)

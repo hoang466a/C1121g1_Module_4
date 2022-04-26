@@ -23,6 +23,7 @@
         <th>Name</th>
         <th>Birthday</th>
         <th>Gender</th>
+        <th>Customer Code</th>
         <th>Id Card</th>
         <th>Phone</th>
         <th>Email</th>
@@ -37,6 +38,7 @@
         <td th:text="${row.getCustomerName()}"></td>
         <td th:text="${#dates.format(row.getCustomerBirthday(),'dd-MM-YYYY')}"></td>
         <td th:text="${row.customerGender}?nam:nữ"></td>
+        <td th:text="${row.getCustomerCode()}"></td>
         <td th:text="${row.getCustomerIdCard()}"></td>
         <td th:text="${row.getCustomerPhone()}"></td>
         <td th:text="${row.getCustomerEmail()}"></td>

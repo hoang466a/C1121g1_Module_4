@@ -22,10 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -88,4 +85,15 @@ public class ContractController {
         }
     }
 
+   /* @GetMapping("/contract/{id}/view")
+    public ModelAndView showView(@PathVariable int id){
+        ModelAndView modelAndView= new ModelAndView("contract/view");
+        Contract contract=contractService.findById(id);
+        if(contract!=null){
+            modelAndView.add
+        }
+
+        return modelAndView;
+    }
+*/
 }

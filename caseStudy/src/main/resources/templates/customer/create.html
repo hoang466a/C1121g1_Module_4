@@ -32,6 +32,11 @@
             </select>
         </div>
         <div>
+            <label>Code</label>
+            <input type="text" th:field="*{customerCode}"/>
+            <p th:if="${#fields.hasErrors('customerCode')}" th:errors="*{customerCode}" style="color: red"></p>
+        </div>
+        <div>
             <label>Id Card</label>
             <input type="text" th:field="*{customerIdCard}"/>
             <p th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}" style="color: red"></p>

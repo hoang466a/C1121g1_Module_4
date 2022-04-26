@@ -3,6 +3,7 @@ package com.casestudy.vn.model.employee;
 import com.casestudy.vn.model.contract.Contract;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -13,7 +14,9 @@ public class Employee {
     private Integer employeeId;
     private String employeeName;
     private Date employeeBirthday;
+
     private String employeeIdCard;
+    @Column(columnDefinition = "Decimal(10,2)")
     private String employeeSalary;
     private String employeePhone;
     private String employeeEmail;

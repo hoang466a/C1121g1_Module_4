@@ -1,10 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
 <body>
+<h3>Add Employee</h3>
+<p>
+    <a th:href="@{/employee}">
+        Back to employee list
+    </a>
+</p>
 
+<div id="form">
+    <form th:action="@{/employee/fix}" th:object="${employeeDto}"
+          method="POST" >
+        <input type="hidden" th:field="*{employeeId}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{employeeName}"/>
+            <p th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Birthday</label>
+            <input type="date" th:field="*{employeeBirthday}"/>
+            <p th:if="${#fields.hasErrors('employeeBirthday')}" th:errors="*{employeeBirthday}" style="color: red"></p>
+        </div>
+
+        <div>
+            <label>Id Card</label>
+            <input type="text" th:field="*{employeeIdCard}"/>
+            <p th:if="${#fields.hasErrors('employeeIdCard')}" th:errors="*{employeeIdCard}" style="color: red"></p>
+        </div>
+
+        <div>
+            <label>Salary</label>
+            <input type="text" th:field="*{employeeSalary}"/>
+            <p th:if="${#fields.hasErrors('employeeSalary')}" th:errors="*{employeeSalary}" style="color: red"></p>
+        </div>
+
+        <div>
+            <label>Phone</label>
+            <input type="text" th:field="*{employeePhone}"/>
+            <p th:if="${#fields.hasErrors('employeePhone')}" th:errors="*{employeePhone}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" th:field="*{employeeEmail}"/>
+            <p th:if="${#fields.hasErrors('employeeEmail')}" th:errors="*{employeeEmail}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Adress</label>
+            <input type="text" th:field="*{employeeAddress}"/>
+        </div>
+        <div>
+            <label>Position</label>
+            <select th:field="*{position}">
+                <option th:each="row:${positionList}"
+                        th:value="${row.getPositionId()}"
+                        th:utext="${row.getPositionName()}"/>
+                <p th:if="${#fields.hasErrors('position')}" th:errors="*{position}" style="color: red"></p>
+            </select>
+        </div>
+
+        <div>
+            <label>Education Degree</label>
+            <select th:field="*{educationDegree}">
+                <option th:each="row:${educationDegreeList}"
+                        th:value="${row.getEducationDegreeId()}"
+                        th:utext="${row.getEducationDegreeName()}"/>
+                <p th:if="${#fields.hasErrors('educationDegree')}" th:errors="*{educationDegree}" style="color: red"></p>
+            </select>
+        </div>
+
+        <div>
+            <label>Division</label>
+            <select th:field="*{division}">
+                <option th:each="row:${divivsionList}"
+                        th:value="${row.getDivisionId()}"
+                        th:utext="${row.getDivisionName()}"/>
+                <p th:if="${#fields.hasErrors('division')}" th:errors="*{division}" style="color: red"></p>
+            </select>
+        </div>
+        <div>
+            <label>User</label>
+            <input type="text" th:field="*{user.username}"/>
+        </div>
+
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

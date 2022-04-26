@@ -15,6 +15,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerId;
     private String customerName;
+    private String customerCode;
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private Date customerBirthday;
     private boolean customerGender;
@@ -38,6 +39,13 @@ public class Customer {
         this.contractSet = contractSet;
     }
 
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
+    }
 
     public Customer() {
     }

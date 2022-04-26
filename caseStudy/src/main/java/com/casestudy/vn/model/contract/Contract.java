@@ -18,7 +18,9 @@ public class Contract {
     private Date contractStartDate;
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private Date contractEndDate;
+    @Column(columnDefinition = "Decimal(10,2)")
     private String contractTotalMoney;
+    @Column(columnDefinition = "Decimal(10,2)")
     private String contractDeposit;
     @ManyToOne
     @JoinColumn(name="employee_id",referencedColumnName = "employeeId")

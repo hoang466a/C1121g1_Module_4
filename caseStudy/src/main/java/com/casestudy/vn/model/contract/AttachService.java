@@ -9,6 +9,7 @@ public class AttachService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer attachServiceId;
     private String attachServiceName;
+    @Column(columnDefinition = "Decimal(10,2)")
     private String attachServiceCost;
     private String attachServiceUnit;
     private String attachServiceStatus;
