@@ -61,6 +61,7 @@ public class ServiceController {
     public ModelAndView saveService(@Valid @ModelAttribute ServiceDTO serviceDTO,
                                      BindingResult bindingResult){
         serviceDTO.validate(serviceDTO,bindingResult);
+        serviceDTO.setContractSet(null);
         if(bindingResult.hasErrors()){
             ModelAndView modelAndView=new ModelAndView("service_furama/create");
             modelAndView.addObject("rentTypeList",rentTypeService.findAll());

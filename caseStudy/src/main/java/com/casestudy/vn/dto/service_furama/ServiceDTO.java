@@ -1,5 +1,6 @@
 package com.casestudy.vn.dto.service_furama;
 
+import com.casestudy.vn.model.contract.Contract;
 import com.casestudy.vn.model.service_furama.RentType;
 import com.casestudy.vn.model.service_furama.ServiceType;
 import org.springframework.validation.Errors;
@@ -8,6 +9,7 @@ import org.springframework.validation.Validator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Set;
 
 
 public class ServiceDTO implements Validator {
@@ -29,6 +31,16 @@ public class ServiceDTO implements Validator {
 
     @NotNull(message = "Không được để trống")
     private ServiceType serviceType;
+
+    private Set<Contract> contractSet;
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
+    }
 
     public ServiceDTO() {
     }

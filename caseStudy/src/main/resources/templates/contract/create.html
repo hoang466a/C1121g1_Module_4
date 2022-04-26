@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Add Contract</h3>
+<p>
+    <a th:href="@{/contract}">
+        Back to contract list
+    </a>
+</p>
+
+<div id="form">
+    <form th:action="@{/contract/save}" th:object="${contractDto}"
+          method="POST" >
+        <input type="hidden" th:field="*{contractId}"/>
+        <div>
+            <label>Start Date</label>
+            <input type="date" th:field="*{contractStartDate}"/>
+            <p th:if="${#fields.hasErrors('contractStartDate')}" th:errors="*{contractStartDate}" style="color: red"></p>
+        </div>
+        <div>
+            <label>End Date</label>
+            <input type="date" th:field="*{contractEndDate}"/>
+            <p th:if="${#fields.hasErrors('contractEndDate')}" th:errors="*{contractEndDate}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Deposit</label>
+            <input type="text" th:field="*{contractDeposit}"/>
+            <p th:if="${#fields.hasErrors('contractDeposit')}" th:errors="*{contractDeposit}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Total Money</label>
+            <input type="text" th:field="*{contractTotalMoney}"/>
+            <p th:if="${#fields.hasErrors('contractTotalMoney')}" th:errors="*{contractTotalMoney}" style="color: red"></p>
+        </div>
+
+        <div>
+            <label>Employee</label>
+            <select th:field="*{employee}">
+                <option th:each="type : ${employeeList}"
+                        th:value="${type.getEmployeeId()}"
+                        th:utext="${type.getEmployeeName()}"/>
+            </select>
+            <p th:if="${#fields.hasErrors('employee')}" th:errors="*{employee}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Customer</label>
+            <select th:field="*{customer}">
+                <option th:each="type : ${customerList}"
+                        th:value="${type.getCustomerId()}"
+                        th:utext="${type.getCustomerName()}"/>
+            </select>
+            <p th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Service</label>
+            <select th:field="*{service}">
+                <option th:each="type : ${serviceList}"
+                        th:value="${type.getServiceId()}"
+                        th:utext="${type.getServiceName()}"/>
+            </select>
+            <p th:if="${#fields.hasErrors('service')}" th:errors="*{service}" style="color: red"></p>
+        </div>
+
+
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

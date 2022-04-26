@@ -1,5 +1,6 @@
 package com.casestudy.vn.dto.employee;
 
+import com.casestudy.vn.model.contract.Contract;
 import com.casestudy.vn.model.employee.Division;
 import com.casestudy.vn.model.employee.EducationDegree;
 import com.casestudy.vn.model.employee.Position;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.Set;
 
 public class EmployeeDto implements Validator {
     private Integer employeeId;
@@ -38,6 +40,15 @@ public class EmployeeDto implements Validator {
     @NotNull(message="Phân chia khu không được để trống!")
     private Division division;
     private User user;
+    private Set<Contract> contractSet;
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
+    }
 
     public EmployeeDto() {
     }
@@ -144,6 +155,9 @@ public class EmployeeDto implements Validator {
         return false;
     }
 
+
+
+
     @Override
     public void validate(Object target, Errors errors) {
     EmployeeDto employeeDto=(EmployeeDto) target;
@@ -157,5 +171,7 @@ public class EmployeeDto implements Validator {
                         "std.number", "Số không được âm, xin nhập lại!");
             }
         }
+
+
     }
 }

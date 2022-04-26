@@ -1,5 +1,6 @@
 package com.casestudy.vn.dto.customer;
 
+import com.casestudy.vn.model.contract.Contract;
 import com.casestudy.vn.model.customer.CustomerType;
 import com.sun.istack.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.Set;
 
 public class CustomerDTO implements Validator {
     private Integer customerId;
@@ -33,7 +35,15 @@ public class CustomerDTO implements Validator {
     private String customerAddress;
     @NotNull
     private CustomerType customerType;
+    private Set<Contract> contractSet;
 
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
+    }
     public CustomerDTO() {
     }
 

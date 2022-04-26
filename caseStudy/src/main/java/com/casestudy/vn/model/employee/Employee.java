@@ -1,9 +1,10 @@
 package com.casestudy.vn.model.employee;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.casestudy.vn.model.contract.Contract;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Employee {
@@ -32,6 +33,17 @@ public class Employee {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="username",referencedColumnName = "username")
     private User user;
+
+    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL)
+    private Set<Contract> contractSet;
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
+    }
 
     public Employee() {
     }

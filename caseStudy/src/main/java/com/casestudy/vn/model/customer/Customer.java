@@ -1,11 +1,13 @@
 package com.casestudy.vn.model.customer;
 
 
+import com.casestudy.vn.model.contract.Contract;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Customer {
@@ -24,6 +26,18 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name="customer_type_id",referencedColumnName = "customerTypeId")
     private CustomerType customerType;
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    private Set<Contract> contractSet;
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
+    }
+
 
     public Customer() {
     }

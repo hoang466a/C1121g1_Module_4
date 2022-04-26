@@ -39,8 +39,8 @@ public class EmployeeController {
                                          Pageable pageable, @RequestParam Optional<String> keyword){
         String keyWordValue= keyword.orElse("");
         ModelAndView modelAndView=new ModelAndView("employee/list");
-       Page<Employee> employeeList=employeeService.searchAllPage(keyWordValue,pageable);
-       modelAndView.addObject("employeeList",employeeList);
+        Page<Employee> employeeList=employeeService.searchAllPage(keyWordValue,pageable);
+        modelAndView.addObject("employeeList",employeeList);
         modelAndView.addObject("keyWordValue",keyWordValue);
         return modelAndView;
     }
@@ -60,6 +60,8 @@ public class EmployeeController {
     public ModelAndView saveEmployee(@Valid @ModelAttribute EmployeeDto employeeDto,
                                      BindingResult bindingResult){
         employeeDto.validate(employeeDto,bindingResult);
+        employeeDto.setContractSet(null);
+        employeeDto.setUser(null);
         if(bindingResult.hasErrors()){
             ModelAndView modelAndView=new ModelAndView("employee/create");
             modelAndView.addObject("positionList",positionService.findAll());

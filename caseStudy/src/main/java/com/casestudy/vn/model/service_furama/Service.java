@@ -1,8 +1,10 @@
 package com.casestudy.vn.model.service_furama;
 
+import com.casestudy.vn.model.contract.Contract;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Service {
@@ -25,6 +27,17 @@ public class Service {
     @ManyToOne
     @JoinColumn(name="rent_type_id",referencedColumnName = "rentTypeId")
     private RentType rentType;
+
+    @OneToMany(mappedBy = "service",cascade = CascadeType.ALL)
+    private Set<Contract> contractSet;
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
+    }
 
     public Service() {
     }

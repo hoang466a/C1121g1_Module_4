@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout ::head">
+    <meta charset="UTF-8">
+    <title>Contract List</title>
+</head>
+<link reel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<body>
+<h3>Contract List</h3>
+<p>
+    <a th:href="@{/contract/create}">
+        Add new contract
+    </a>
+<form action="/contract">
+    <input type="search" name="keyword">
+    <button>Search</button>
+</form>
+
+</p>
+<table id = "object_s">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Deposit</th>
+        <th>Employee</th>
+        <th>Customer</th>
+        <th>Service</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${contractList}">
+        <td th:text="${row.getContractId()}"></td>
+        <td th:text="${#dates.format(row.getContractStartDate(),'dd-MM-YYYY')}"></td>
+        <td th:text="${#dates.format(row.getContractEndDate(),'dd-MM-YYYY')}"></td>
+        <td th:text="${row.getContractDeposit()}"></td>
+        <td th:text="${row.employee.getEmployeeName()}"></td>
+        <td th:text="${row.customer.getCustomerName()}"></td>
+        <td th:text="${row.service.getServiceName()}"></td>
+        <td><a th:href="@{/contract/{id}/edit(id=${row.getContractId()})}" class="btn btn-info">Edit</a></td>
+        <td><a th:href="@{/contract/{id}/delete(id=${row.getContractId()})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/contract/{id}/view(id=${row.getContractId()})}" class="btn btn-info">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/contract(page=${contractList.number-1},keyword=${keyWordValue})}"
+       th:if="${contractList.hasPrevious()}">Previous</a>
+    <span th:text="${contractList.number+1}"></span> /
+    <span th:text="${contractList.totalPages}"></span>
+    <a th:href="@{/contract(page=${contractList.number+1},keyword=${keyWordValue})}"
+            th:if="${contractList.hasNext()}">Next</a>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

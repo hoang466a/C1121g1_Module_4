@@ -1,38 +1,41 @@
-package com.casestudy.vn.model.contract;
+package com.casestudy.vn.dto.contract;
 
+import com.casestudy.vn.model.contract.ContractDetail;
 import com.casestudy.vn.model.customer.Customer;
 import com.casestudy.vn.model.employee.Employee;
 import com.casestudy.vn.model.service_furama.Service;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-public class Contract {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ContractDto implements Validator {
     private Integer contractId;
+    @NotNull
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private Date contractStartDate;
+    @NotNull
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private Date contractEndDate;
-    private String contractTotalMoney;
+    @NotBlank
     private String contractDeposit;
-    @ManyToOne
-    @JoinColumn(name="employee_id",referencedColumnName = "employeeId")
+    @NotBlank
+    private String contractTotalMoney;
+    @NotNull
     private Employee employee;
-    @ManyToOne
-    @JoinColumn(name="customer_id",referencedColumnName = "customerId")
+    @NotNull
     private Customer customer;
-    @ManyToOne
-    @JoinColumn(name="service_id",referencedColumnName = "serviceId")
+    @NotNull
     private Service service;
-    @OneToMany(mappedBy = "contract",cascade = CascadeType.ALL)
+
     private Set<ContractDetail> contractDetailSet;
 
-    public Contract() {
+    public ContractDto() {
     }
 
     public String getContractTotalMoney() {
@@ -105,5 +108,36 @@ public class Contract {
 
     public void setContractDetailSet(Set<ContractDetail> contractDetailSet) {
         this.contractDetailSet = contractDetailSet;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        ContractDto contractDto= (ContractDto)target;
+        if (contractDto.contractDeposit.trim().isEmpty()) {
+        } else {
+            if (!contractDto.contractDeposit.matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")) {
+                errors.rejectValue("contractDeposit",
+                        "std.type", "Định dạng nhập vào không hợp lệ!");
+            } else if (Double.parseDouble(contractDto.contractDeposit) < 0) {
+                errors.rejectValue("contractDeposit",
+                        "std.number", "Số không được âm, xin nhập lại!");
+            }
+        }
+
+        if (contractDto.contractTotalMoney.trim().isEmpty()) {
+        } else {
+            if (!contractDto.contractTotalMoney.matches("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")) {
+                errors.rejectValue("contractTotalMoney",
+                        "std.type", "Định dạng nhập vào không hợp lệ!");
+            } else if (Double.parseDouble(contractDto.contractTotalMoney) < 0) {
+                errors.rejectValue("contractTotalMoney",
+                        "std.number", "Số không được âm, xin nhập lại!");
+            }
+        }
     }
 }

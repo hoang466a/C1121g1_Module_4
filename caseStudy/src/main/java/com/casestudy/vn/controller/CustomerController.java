@@ -63,6 +63,7 @@ public class CustomerController {
     @PostMapping("/customer/save")
     public ModelAndView saveCustomer(@Valid @ModelAttribute CustomerDTO customerDTO,
                                      BindingResult bindingResult){
+        customerDTO.setContractSet(null);
         if(bindingResult.hasErrors()){
             ModelAndView modelAndView=new ModelAndView("customer/create");
             //modelAndView.addObject("customerDTO",new CustomerDTO());
