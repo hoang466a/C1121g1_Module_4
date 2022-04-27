@@ -39,4 +39,10 @@ public class CustomerServiceImpl implements ICustomerService {
     public void remove(Integer id) {
         customerRepository.deleteById(id);
     }
+
+
+    @Override
+    public Customer findByCode(String code) {
+        return customerRepository.findByCustomerCode(code);
+    }
 }

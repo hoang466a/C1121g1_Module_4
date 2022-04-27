@@ -1,7 +1,9 @@
 package com.casestudy.vn.dto.customer;
 
 import com.casestudy.vn.model.contract.Contract;
+import com.casestudy.vn.model.customer.Customer;
 import com.casestudy.vn.model.customer.CustomerType;
+import com.casestudy.vn.service.customer.ICustomerService;
 import com.sun.istack.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Errors;
@@ -38,15 +40,9 @@ public class CustomerDTO implements Validator {
     private String customerAddress;
     @NotNull
     private CustomerType customerType;
-    private Set<Contract> contractSet;
+    private ICustomerService iCustomerService;
 
-    public Set<Contract> getContractSet() {
-        return contractSet;
-    }
 
-    public void setContractSet(Set<Contract> contractSet) {
-        this.contractSet = contractSet;
-    }
     public CustomerDTO() {
     }
 
@@ -56,6 +52,24 @@ public class CustomerDTO implements Validator {
 
     public void setCustomerCode(String customerCode) {
         this.customerCode = customerCode;
+    }
+
+    public ICustomerService getiCustomerService() {
+        return iCustomerService;
+    }
+
+    public void setiCustomerService(ICustomerService iCustomerService) {
+        this.iCustomerService = iCustomerService;
+    }
+
+    private Set<Contract> contractSet;
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
     }
 
     public Integer getCustomerId() {
@@ -137,6 +151,15 @@ public class CustomerDTO implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
+        CustomerDTO customerDTO=(CustomerDTO)target;
+        String currentCode=customerDTO.getCustomerCode();
+        Customer customer=iCustomerService.findByCode(currentCode);
+        if(customerDTO.getCustomerId()==null){
+            if(customer!=null){
+                if(customer.getCustomerCode().equals(currentCode)){
+                    errors.rejectValue("customerCode", "", "Mã khách hàng đã tồn tại.");
+                }
+            }
+        }
     }
 }

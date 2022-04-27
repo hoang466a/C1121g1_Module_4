@@ -12,4 +12,5 @@ public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
     /*@Query(value="select * from Customer",nativeQuery=true)
     Page<Customer> findAllByName(String name, Pageable pageable);*/
    Page<Customer> findAllByCustomerNameContaining(String name,Pageable pageable);
+   Customer findByCustomerCode(String code);
 }

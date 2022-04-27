@@ -4,4 +4,5 @@ import com.casestudy.vn.model.customer.Customer;
 import com.casestudy.vn.service.IGeneralService;
 
 public interface ICustomerService extends IGeneralService<Customer> {
+    Customer findByCode(String code);
 }

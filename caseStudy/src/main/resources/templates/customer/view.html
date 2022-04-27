@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
 <body>
+<h3>View Customer</h3>
+<p>
+    <a th:href="@{/customer}">
+        Back to customer list
+    </a>
+</p>
 
+<div id="form">
+        <div>
+            <label>Name</label>
+            <p th:text="${customer.customerName}"/>
+        </div>
+        <div>
+            <label>Birthday</label>
+            <p th:text="${customer.getCustomerBirthday()}"/>
+        </div>
+
+        <div>
+            <label>Gender</label>
+            <p th:text="${customer.customerGender}?Nam:Nữ"/>
+        </div>
+        <div>
+            <label>Code</label>
+            <p th:text="${customer.customerCode}"/>
+        </div>
+        <div>
+            <label>Id Card</label>
+            <p th:text="${customer.customerIdCard}"/>
+        </div>
+        <div>
+            <label>Phone</label>
+            <p th:text="${customer.customerPhone}"/>
+        </div>
+        <div>
+            <label>Email</label>
+            <p th:text="${customer.customerEmail}"/>
+        </div>
+        <div>
+            <label>Address</label>
+            <p th:text="${customer.customerAddress}"/>
+        </div>
+        <div>
+            <label>Customer Type</label>
+            <p th:text="${customer.customerType.customerTypeName}"/>
+        </div>
+</div>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>
