@@ -26,7 +26,7 @@ public class Contract {
     @JoinColumn(name="employee_id",referencedColumnName = "employeeId")
     private Employee employee;
     @ManyToOne
-    @JoinColumn(name="customer_id",referencedColumnName = "customerId")
+    @JoinColumn(name="id",referencedColumnName = "id")
     private Customer customer;
     @ManyToOne
     @JoinColumn(name="service_id",referencedColumnName = "serviceId")

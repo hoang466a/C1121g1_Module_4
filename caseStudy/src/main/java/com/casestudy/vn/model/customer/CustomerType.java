@@ -1,5 +1,7 @@
 package com.casestudy.vn.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ public class CustomerType {
     private String customerTypeName;
 
     @OneToMany(mappedBy = "customerType",cascade = CascadeType.ALL)
+    @JsonBackReference
     private Set<Customer> customerSet;
 
     public CustomerType() {

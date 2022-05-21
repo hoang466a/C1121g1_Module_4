@@ -9,9 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -19,7 +16,7 @@ import java.util.Date;
 import java.util.Set;
 
 public class CustomerDTO implements Validator {
-    private Integer customerId;
+    private Integer id;
     @NotBlank
     private String customerName;
     @NotBlank
@@ -28,22 +25,30 @@ public class CustomerDTO implements Validator {
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     @NotNull
     private Date customerBirthday;
-    private boolean customerGender;
+    private String customerGender;
     @NotBlank(message = "không được để trống")
     @Pattern(regexp="[0-9]{9}",message = "dài tối thiểu 9 số")
     private String customerIdCard;
     @NotBlank(message = "không được để trống")
-    @Pattern(regexp="(84|0)+(9[0|1])+([0-9]{7})\\b",message = "dài tối thiểu 10 chữ số")
+    @Pattern(regexp="(84|0)+(9[0|1])+([0-9]{7})",message = "dài tối thiểu 10 chữ số")
     private String customerPhone;
     @Email
     private String customerEmail;
     private String customerAddress;
     @NotNull
     private CustomerType customerType;
-    private ICustomerService iCustomerService;
+    private ICustomerService iCustomerService; //để so sánh customerCode có giống nhau hay không?
 
 
     public CustomerDTO() {
+    }
+
+    public String getCustomerGender() {
+        return customerGender;
+    }
+
+    public void setCustomerGender(String customerGender) {
+        this.customerGender = customerGender;
     }
 
     public String getCustomerCode() {
@@ -72,12 +77,12 @@ public class CustomerDTO implements Validator {
         this.contractSet = contractSet;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCustomerName() {
@@ -94,14 +99,6 @@ public class CustomerDTO implements Validator {
 
     public void setCustomerBirthday(Date customerBirthday) {
         this.customerBirthday = customerBirthday;
-    }
-
-    public boolean isCustomerGender() {
-        return customerGender;
-    }
-
-    public void setCustomerGender(boolean customerGender) {
-        this.customerGender = customerGender;
     }
 
     public String getCustomerIdCard() {
@@ -154,12 +151,15 @@ public class CustomerDTO implements Validator {
         CustomerDTO customerDTO=(CustomerDTO)target;
         String currentCode=customerDTO.getCustomerCode();
         Customer customer=iCustomerService.findByCode(currentCode);
-        if(customerDTO.getCustomerId()==null){
+        if(customerDTO.getId()==null){
             if(customer!=null){
                 if(customer.getCustomerCode().equals(currentCode)){
                     errors.rejectValue("customerCode", "", "Mã khách hàng đã tồn tại.");
                 }
             }
         }
+
+
+
     }
 }

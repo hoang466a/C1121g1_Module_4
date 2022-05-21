@@ -12,7 +12,7 @@
 <div id="form">
     <form th:action="@{/customer/save}" th:object="${customerDTO}"
           method="POST" >
-        <input type="hidden" th:field="*{customerId}"/>
+        <input type="hidden" th:field="*{id}"/>
         <div>
             <label>Name</label>
             <input type="text" th:field="*{customerName}"/>
@@ -27,8 +27,8 @@
         <div>
             <label>Gender</label>
             <select th:field="*{customerGender}">
-                <option th:value=true th:text="Male"></option>
-                <option th:value=false th:text="Female"></option>
+                <option th:value="nam" th:text="Male"></option>
+                <option th:value="nữ" th:text="Female"></option>
             </select>
         </div>
         <div>

@@ -4,9 +4,11 @@ package com.codegym.vn.model;
 import javax.persistence.*;
 
 @Entity
+
 public class LibraryCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "")
     private Integer idCard;
     private String codeCard;
 

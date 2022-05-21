@@ -47,7 +47,7 @@
             <label>Customer</label>
             <select th:field="*{customer}">
                 <option th:each="type : ${customerList}"
-                        th:value="${type.getCustomerId()}"
+                        th:value="${type.getId()}"
                         th:utext="${type.getCustomerName()}"/>
             </select>
             <p th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" style="color: red"></p>

@@ -1,6 +1,7 @@
 package com.casestudy.vn.controller;
 
 import com.casestudy.vn.dto.customer.CustomerDTO;
+import com.casestudy.vn.dto.date.DateDto;
 import com.casestudy.vn.model.customer.Customer;
 import com.casestudy.vn.model.customer.CustomerType;
 import com.casestudy.vn.repository.customer.ICustomerTypeRepository;
@@ -25,10 +26,12 @@ import java.util.Optional;
 @Controller
 public class CustomerController {
     @Autowired
-    ICustomerService customerService;
+    ICustomerService customerService ;
 
     @Autowired
     ICustomerTypeService customerTypeService;
+
+    DateDto dateDto=new DateDto();
 
     @GetMapping("/")
     public ModelAndView showIndex() {
@@ -37,11 +40,14 @@ public class CustomerController {
     }
 
     @GetMapping("/customer")
-    public ModelAndView showList(@PageableDefault(value = 3, sort = "customerId", direction = Sort.Direction.ASC)
+    public ModelAndView showList(@PageableDefault(value = 3, sort = "id", direction = Sort.Direction.ASC)
                                          Pageable pageable, @RequestParam Optional<String> keyword) {
         String keyWordValue = keyword.orElse("");
         ModelAndView modelAndView = new ModelAndView("customer/list");
         Page<Customer> customerList = customerService.searchAllPage(keyWordValue, pageable);
+
+
+
         modelAndView.addObject("customerList", customerList);
         modelAndView.addObject("keyWordValue", keyWordValue);
         return modelAndView;
@@ -62,7 +68,7 @@ public class CustomerController {
                                      BindingResult bindingResult) {
         customerDTO.setContractSet(null);
         CustomerDTO customerDTO1=new CustomerDTO();
-        customerDTO1.setiCustomerService(customerService);
+        //customerDTO1.setiCustomerService(customerService);
         customerDTO1.validate(customerDTO,bindingResult);
         if (bindingResult.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("customer/create");

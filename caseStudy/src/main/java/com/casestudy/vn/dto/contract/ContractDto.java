@@ -1,5 +1,6 @@
 package com.casestudy.vn.dto.contract;
 
+import com.casestudy.vn.dto.date.DateDto;
 import com.casestudy.vn.model.contract.ContractDetail;
 import com.casestudy.vn.model.customer.Customer;
 import com.casestudy.vn.model.employee.Employee;
@@ -15,6 +16,8 @@ import java.util.Date;
 import java.util.Set;
 
 public class ContractDto implements Validator {
+    DateDto dateDto =new DateDto();
+
     private Integer contractId;
     @NotNull
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
@@ -138,6 +141,15 @@ public class ContractDto implements Validator {
                 errors.rejectValue("contractTotalMoney",
                         "std.number", "Số không được âm, xin nhập lại!");
             }
+        }
+
+        if(dateDto.compareToToday(contractDto.contractStartDate)==1){
+            errors.rejectValue("contractStartDate",
+                    "std.startdate", "Ngày làm hợp đồng không hợp lệ!");
+        }
+        if(dateDto.compareToToday(contractDto.contractEndDate)==-1){
+            errors.rejectValue("contractEndDate",
+                    "std.enddate", "Ngày kết thúc hợp đồng không hợp lệ!");
         }
     }
 }

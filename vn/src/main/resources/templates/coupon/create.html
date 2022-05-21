@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>Add Coupon</h3>
+<p>
+    <a th:href="@{/coupon}">
+        Back to coupon list
+    </a>
+</p>
+
+<div id="form">
+    <form th:action="@{/coupon/save}" th:object="${couponDto}"
+          method="POST" >
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Title</label>
+            <input type="text" th:field="*{title}"/>
+            <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Start Date</label>
+            <input type="date" th:field="*{couponStartDate}"/>
+            <p th:if="${#fields.hasErrors('couponStartDate')}" th:errors="*{couponStartDate}" style="color: red"></p>
+        </div>
+        <div>
+            <label>End Date</label>
+            <input type="date" th:field="*{couponEndDate}"/>
+            <p th:if="${#fields.hasErrors('couponEndDate')}" th:errors="*{couponEndDate}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Coupon Value</label>
+            <input type="text" th:field="*{couponMoney}"/>
+            <p th:if="${#fields.hasErrors('couponMoney')}" th:errors="*{couponMoney}" style="color: red"></p>
+        </div>
+        <div>
+            <label>Detail</label>
+            <input type="text" th:field="*{detail}"/>
+            <p th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" style="color: red"></p>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

@@ -13,24 +13,37 @@ import java.util.Set;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer customerId;
+    private Integer id;
     private String customerName;
     private String customerCode;
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private Date customerBirthday;
-    private boolean customerGender;
-    private String customerIdCard;
-    private String customerPhone;
-    private String customerEmail;
-    private String customerAddress;
-    @JsonBackReference
+    private String customerGender;
     @ManyToOne
     @JoinColumn(name="customer_type_id",referencedColumnName = "customerTypeId")
     private CustomerType customerType;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private Set<Contract> contractSet;
 
+
+
+    private String customerIdCard;
+    private String customerPhone;
+    private String customerEmail;
+    private String customerAddress;
+
+    public Customer() {
+    }
+
+    public String getCustomerGender() {
+        return customerGender;
+    }
+
+    public void setCustomerGender(String customerGender) {
+        this.customerGender = customerGender;
+    }
     public Set<Contract> getContractSet() {
         return contractSet;
     }
@@ -47,15 +60,14 @@ public class Customer {
         this.customerCode = customerCode;
     }
 
-    public Customer() {
+
+
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setId(Integer customerId) {
+        this.id = customerId;
     }
 
     public String getCustomerName() {
@@ -74,13 +86,7 @@ public class Customer {
         this.customerBirthday = customerBirthday;
     }
 
-    public boolean isCustomerGender() {
-        return customerGender;
-    }
 
-    public void setCustomerGender(boolean customerGender) {
-        this.customerGender = customerGender;
-    }
 
     public String getCustomerIdCard() {
         return customerIdCard;
